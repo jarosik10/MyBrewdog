@@ -21,25 +21,35 @@ body {
     font-weight: 300;
     font-variant: small-caps;
     color: white;
+    z-index: 9999;
 }
 
 .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     height: 72px;
     padding: 0 15px;
+    width: 100%;
     background-color: black;
     justify-content: space-between;
     align-items: center;
+    /* z-index: 9999; */
 }
 
 .navigation__logo {
     max-width: 50px;
+    z-index: 9999;
 }
 
 .hamburger {
     position: relative;
+    padding: 10px;
+    right: -10px;
     border: none;
     background: none;
+    z-index: 9999;
 }
 
 .hamburger__bars {
@@ -48,6 +58,7 @@ body {
     height: 4px;
     border-radius: 2px;
     background-color: white;
+    transition: background-color 0.2s ease-out;
 }
 
 .hamburger__bars::before, .hamburger__bars::after {
@@ -58,6 +69,7 @@ body {
     border-radius: 2px;
     left: 0;
     background-color: white;
+    transition: transform 0.2s ease-out;
 }
 
 .hamburger__bars::before {
@@ -66,4 +78,88 @@ body {
 
 .hamburger__bars::after {
     top: 10px;
+}
+
+.hamburger--active > .hamburger__bars {
+    background-color: transparent;
+
+}
+.hamburger--active > .hamburger__bars::before {
+    transform: translateY(10px) rotate(135deg);
+}
+
+.hamburger--active > .hamburger__bars::after {
+    transform: translateY(-10px) rotate(225deg);
+}
+
+.menu {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    z-index: 9998;
+}
+
+.menu::before, .menu::after {
+    position: absolute;
+    content: "";
+    background-color: black;
+    z-index: -1;
+    height: 100%;
+    width: 51%;
+    transition: transform .35s ease-out;
+}
+
+.menu::before {
+    top: 0;
+    left: -51%;
+}
+
+.menu::after {
+    top: 0;
+    right: -51%;
+}
+
+.menu__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__list__item {
+    color: white;
+    margin: 15px 0;
+    font-size: 1.8rem;
+    /* font-weight: bold; */
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity .2s ease-out, transform .1s ease-out;
+}
+
+
+.menu--active::before {
+    transform: translateX(100%);
+}
+
+.menu--active::after {
+    transform: translateX(-100%);
+}
+
+.menu--active .menu__list__item {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity .2s .35s ease-out, transform .15s .35s ease-out;;
+}
+
+.beers {
+    margin: 72px 15px 0;
+    font-size: 1.6rem;
+    text-align: justify;
 }

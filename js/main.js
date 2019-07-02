@@ -1,6 +1,16 @@
 console.log("hello im here!");
 
-let url = 'https://api.punkapi.com/v2/beers?page=1&per_page=5&brewed_after=01-2010';
+let hamburger = document.querySelector('.hamburger');
+let menu = document.querySelector('.menu');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('hamburger--active');
+    menu.classList.toggle('menu--active');
+}, false);
+
+
+
+let url = 'https://api.punkapi.com/v2/beers?page=1&per_page=5';
 
 fetch(url)
 .then(response => response.json())
