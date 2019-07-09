@@ -166,10 +166,13 @@ body {
     width: 100%;
     margin-top: 72px;
     position: relative;
-    /* z-index: -1; */
 }
 
+.beer-search__picture {
+    display: flex;
+}
 .beer-search__picture img {
+    max-width: 100%;
     width: 100%;
 }
 
@@ -194,6 +197,28 @@ body {
 
 .beer-search__input:focus {
     box-shadow: 0 0 10px rgb(209, 140, 12);
+}
+
+.about-brewdog {
+    flex-direction: column;
+    padding: 20px;
+    font-size: 1.6rem;
+    text-align: justify;
+}
+
+.about-brewdog__header {
+    background-color: black;
+    text-align: center;
+}
+
+.about-brewdog__title {
+    font-variant: small-caps;
+    font-size: 2.4rem;
+    color: white;
+}
+
+.about-brewdog p {
+    color: black;
 }
 
 .beers {
