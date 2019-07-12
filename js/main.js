@@ -97,6 +97,7 @@ function addCarouselMovement(field, carousel) {
         }
     } else {
         field.onmousedown = function (event) {
+            event.preventDefault();
             let mousePositionX = event.clientX;
             field.onmousemove = function (event) {
                 let newMousePositionX = event.clientX;
@@ -128,9 +129,9 @@ function mobileAndTabletcheck() {
 function recreateBeerStyleCarousel() {
     let newViewportWidth = window.innerWidth;
     if (viewportWidth != newViewportWidth) {
+        viewportWidth = newViewportWidth;
         document.querySelector('.beer-styles__scene').remove();
         calculateCaruselParameters();
         createCarousel();
-        viewportWidth = newViewportWidth;
     }
 }
