@@ -272,7 +272,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("/images/beer_style_300.png");
+    background-image: url('../images/beer_style_300.png');
     background-size: cover;
     box-shadow: 0 0 10px .5px gray;
 }
