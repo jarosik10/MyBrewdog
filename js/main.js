@@ -47,7 +47,8 @@ function calculateCaruselParameters() {
 
 //Creates beer styles carousel
 function createCarousel() {
-    const beerStylesContainer = document.querySelector('.beer-styles__container');
+    const beerStylesContainer = document.createElement('div');
+    beerStylesContainer.classList.add('beer-styles__container');
     const scene = document.createElement('div');
     scene.classList.add('beer-styles__scene');
     scene.style.width = sceneWidth + 'px';
@@ -55,6 +56,7 @@ function createCarousel() {
     const carousel = document.createElement('div');
     carousel.classList.add('beer-styles__carousel');
     carousel.style.transform = 'translateZ(' + -radius + 'px)';
+    document.querySelector('.beer-styles').appendChild(beerStylesContainer);
     beerStylesContainer.appendChild(scene);
     scene.appendChild(carousel);
 
@@ -85,6 +87,7 @@ function addCarouselMovement(field, carousel) {
     if (mobileAndTabletcheck()) {
         field.ontouchstart = function (event) {
             event = event || window.event;
+            event.preventDefault();
             let touchPositionX = event.touches[0].clientX;
             field.ontouchmove = function (event) {
                 event = event || window.event;
@@ -94,12 +97,17 @@ function addCarouselMovement(field, carousel) {
                 rotateCarousel(carousel, rotation);
                 touchPositionX = newTouchPositionX;
             }
-        }
+            field.ontouchend = function (event) {
+                this.ontouchmove = this.ontouchend = null;
+            }
+        }  
     } else {
         field.onmousedown = function (event) {
+            event = event || window.event;
             event.preventDefault();
             let mousePositionX = event.clientX;
             field.onmousemove = function (event) {
+                event = event || window.event;
                 let newMousePositionX = event.clientX;
                 let shift = mousePositionX - newMousePositionX;
                 rotation += shift * -rotationForce;
@@ -107,7 +115,7 @@ function addCarouselMovement(field, carousel) {
                 mousePositionX = newMousePositionX;
             }
             field.onmouseup = function (event) {
-                this.onmousemove = null;
+                this.onmousemove = this.onmouseup =  null;
             }
         }
     }
@@ -130,7 +138,7 @@ function recreateBeerStyleCarousel() {
     let newViewportWidth = window.innerWidth;
     if (viewportWidth != newViewportWidth) {
         viewportWidth = newViewportWidth;
-        document.querySelector('.beer-styles__scene').remove();
+        document.querySelector('.beer-styles__container').remove();
         calculateCaruselParameters();
         createCarousel();
     }
