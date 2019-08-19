@@ -1,4 +1,4 @@
-* {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -176,7 +176,7 @@ body {
     width: 100%;
 }
 
-.beer-search__input {
+.beer-search__form {
     position: absolute;
     width: 70%;
     height: 40px;
@@ -185,6 +185,13 @@ body {
     left: 0;
     right: 0;
     margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+.beer-search__form__input {
+    grid-column: 1 / -1;
+    grid-row: 1;
     background-color:rgba(255, 255, 255, 0.9);
     border: none;
     outline: none;
@@ -195,29 +202,53 @@ body {
     transition: box-shadow .1s ease-out;
 }
 
-.beer-search__input:focus {
+.beer-search__form__input:focus {
     box-shadow: 0 0 10px rgb(209, 140, 12);
 }
 
-.about-brewdog {
-    flex-direction: column;
-    margin: 40px 20px 20px;
+.beer-search__form__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2;
+    grid-row: 1;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.beer-search__form__submit__icon {
+    height: 18px;
+    color: #575757;
+}
+
+
+.beer-search__form__submit:hover .beer-search__form__submit__icon,
+.beer-search__form__submit:focus .beer-search__form__submit__icon {
+    color: black;
+}
+
+.section {
+    margin: 20px;
     font-size: 1.6rem;
     text-align: justify;
 }
 
-.about-brewdog__header {
+.section__header {
     background-color: black;
     text-align: center;
+    margin: 2rem 0;
 }
 
-.about-brewdog__title {
+.section__title{
     font-variant: small-caps;
     font-size: 2.4rem;
+    margin: 0;
     color: white;
 }
 
-.about-brewdog p {
+.section p {
     color: black;
 }
 
@@ -225,22 +256,6 @@ body {
     margin: 72px 15px 0;
     font-size: 1.6rem;
     text-align: justify;
-}
-
-.beer-styles {
-    margin: 40px 20px 20px;
-    /* padding: 20px */
-}
-
-.section__header {
-    background-color: black;
-    text-align: center;
-}
-
-.section__title{
-    font-variant: small-caps;
-    font-size: 2.4rem;
-    color: white;
 }
 
 .beer-styles__container {
@@ -253,6 +268,7 @@ body {
     perspective: 1000px;
     max-width: 200px;
     max-height: 200px;
+    pointer-events: none;
 }
 
 .beer-styles__carousel {
@@ -261,6 +277,7 @@ body {
     height: 100%;
     transform-style: preserve-3d;
     transition: transform .5s linear;
+    
 }
 
 .beer-styles__carousel__cell {
@@ -269,18 +286,173 @@ body {
     max-height: 180px;
     top: 10px;
     left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url('../images/beer_style_300.png');
     background-size: cover;
     box-shadow: 0 0 10px .5px gray;
 }
 
-.beer-styles__name {
+.beer-styles__cell__link {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+.beer-styles__cell__name {
     font-size: 1.4rem;
     text-align: center;
     color: white;
     background-color: black;
     user-select: none;
+}
+
+
+
+.section__food-pairing {
+    --distanceX: 0px;
+    --defaultXPosition: 0px;
+    --defaultRotation: 0deg;
+}
+
+.food-pairing__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100px;
+}
+
+
+.food-pairing__logo__fork {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    transform: translateX(50px);
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    --distanceX: -35vw;
+    --defaultXPosition: 20px;
+    --defaultRotation: 45deg;
+    transform: rotate(var(--defaultRotation)) translatex(var(--defaultXPosition));
+    transform-origin: 50% 50%;
+    animation: moveInForkAndKnife 1s both;
+}
+
+.food-pairing__logo__knife {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    transform: translateX(-50px);
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    --distanceX: 35vw;
+    --defaultXPosition: -20px;
+    --defaultRotation: -45deg;
+    transform: rotate(var(--defaultRotation)) translatex(var(--defaultXPosition));
+    transform-origin: 50% 50%;
+    animation: moveInForkAndKnife 1s both;
+}
+
+.food-pairing__logo__fork--active {
+    animation: moveOutForkAndKnife 1s both;
+}
+
+.food-pairing__logo__knife--active {
+    animation: moveOutForkAndKnife 1s both;  
+}
+
+.food-pairing__button {
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.food-pairing__form {
+    position: absolute;
+    width: 70vw;
+    height: 40px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    transform: scaleX(0);
+    transition: transform .6s ease;
+}
+
+.food-pairing__form__input { 
+    grid-column: 1 / -1;
+    grid-row: 1;
+    background-color: transparent;
+    border-top: 1px black solid;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom: 3px black solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    font-family: "Vollkorn";
+    font-size: 1.4rem;
+    outline: none;
+}
+
+.food-pairing__form--active {
+    transition: transform .7s .3s ease;
+    transform: scaleX(1);
+}
+
+.food-pairing__form__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2;
+    grid-row: 1;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.food-pairing__form__submit__icon {
+    height: 18px;
+    color: #575757;
+}
+
+@keyframes moveOutForkAndKnife {
+    30% {
+        transform:  translateX(0px) rotate(0deg);
+    }
+    100% {
+        transform: translateX(var(--distanceX));
+    }
+}
+@keyframes moveInForkAndKnife {
+    0% {
+        transform: translateX(var(--distanceX));
+    }
+    70% {
+        transform: translateX(0px);
+        
+    }
+    100% {
+        transform: rotate(var(--defaultRotation)) translateX(var(--defaultXPosition));
+    }
 }
