@@ -28,10 +28,10 @@ hamburger.addEventListener('click', () => {
 // }
 
 // ---Beer style carousel---
-let beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
-let numberOfCarouselCells = beerStyles.length; //number of cells equals number of beer styles
+const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
+const numberOfCarouselCells = beerStyles.length; //number of cells equals number of beer styles
 let theta, radius, sceneWidth, carouselCellWidth;
-let viewportWidth = window.innerWidth;
+const viewportWidth = window.innerWidth;
 window.onresize = recreateBeerStyleCarousel; //creates new version of carousel on window resize
 calculateCaruselParameters();
 createCarousel();
@@ -56,7 +56,7 @@ function createCarousel() {
     const carousel = document.createElement('div');
     carousel.classList.add('beer-styles__carousel');
     carousel.style.transform = 'translateZ(' + -radius + 'px)';
-    document.querySelector('.beer-styles').appendChild(beerStylesContainer);
+    document.querySelector('.section__beer-styles').appendChild(beerStylesContainer);
     beerStylesContainer.appendChild(scene);
     scene.appendChild(carousel);
 
@@ -69,12 +69,13 @@ function createCarousel() {
         carouselCell.style.transform = 'rotateY' + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
         const carouselCellLink = document.createElement('a');
         carouselCellLink.href = "#" + beerStyles[i];
+        carouselCellLink.classList.add('beer-styles__cell__link');
         const beerStyleName = document.createElement('span');
         beerStyleName.innerHTML = beerStyles[i];
-        beerStyleName.classList.add('beer-styles__name');
-        carousel.appendChild(carouselCellLink);
-        carouselCellLink.appendChild(carouselCell);
-        carouselCell.appendChild(beerStyleName);
+        beerStyleName.classList.add('beer-styles__cell__name');
+        carousel.appendChild(carouselCell);
+        carouselCell.appendChild(carouselCellLink);
+        carouselCellLink.appendChild(beerStyleName);
     }
     addCarouselMovement(beerStylesContainer, carousel);
 }
@@ -87,7 +88,7 @@ function addCarouselMovement(field, carousel) {
     if (mobileAndTabletcheck()) {
         field.ontouchstart = function (event) {
             event = event || window.event;
-            event.preventDefault();
+            // event.preventDefault();
             let touchPositionX = event.touches[0].clientX;
             field.ontouchmove = function (event) {
                 event = event || window.event;
@@ -143,3 +144,17 @@ function recreateBeerStyleCarousel() {
         createCarousel();
     }
 }
+
+
+//Food pairing
+
+const foodPairingButton = document.querySelector('.food-pairing__button');
+const foodPairingFork = document.querySelector('.food-pairing__logo__fork');
+const foodPairingKnife = document.querySelector('.food-pairing__logo__knife');
+const foodPairingForm = document.querySelector('.food-pairing__form');
+
+foodPairingButton.addEventListener('click', () => {
+    foodPairingFork.classList.toggle('food-pairing__logo__fork--active');
+    foodPairingKnife.classList.toggle('food-pairing__logo__knife--active');
+    foodPairingForm.classList.toggle('food-pairing__form--active');
+});
