@@ -31,7 +31,7 @@ hamburger.addEventListener('click', () => {
 const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
 const numberOfCarouselCells = beerStyles.length; //number of cells equals number of beer styles
 let theta, radius, sceneWidth, carouselCellWidth;
-const viewportWidth = window.innerWidth;
+let viewportWidth = window.innerWidth;
 window.onresize = recreateBeerStyleCarousel; //creates new version of carousel on window resize
 calculateCaruselParameters();
 createCarousel();
