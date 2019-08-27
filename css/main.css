@@ -188,12 +188,6 @@ body {
     transition: opacity .2s .65s ease-out, transform .15s .65s ease-out;
 }
 
-/* .beer-search {
-    width: 100%;
-    margin-top: 72px;
-    position: relative;
-} */
-
 .header__picture {
     display: flex;
     margin-top: 72px;
@@ -265,8 +259,16 @@ body {
     color: black;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    /* margin-top: 280px; */
+    background-color: white;
+    /* padding-top: 1px; */
+}
+
 .section {
-    margin: 20px;
     font-size: 1.6rem;
     text-align: justify;
 }
@@ -274,7 +276,8 @@ body {
 .section__header {
     background-color: black;
     text-align: center;
-    margin: 2rem 0;
+    margin: 20px auto;
+    /* width: 100%; */
 }
 
 .section__title{
@@ -295,6 +298,14 @@ body {
 }
 
 .beer-styles__container {
+    width: 100%;
+}
+
+.section__beer-styles__picture {
+    /* display: flex; */
+}
+
+.section__beer-styles__picture img {
     width: 100%;
 }
 
@@ -359,6 +370,7 @@ body {
     align-items: center;
     position: relative;
     min-height: 100px;
+    margin: 20px auto;
 }
 
 
@@ -543,4 +555,100 @@ body {
         top: 0;
         width: 70%;
     }
+
+    .section {
+        margin-bottom: 100px;
+    }
+
+    .section__header{
+        width: fit-content;
+        padding: 0 4rem;
+    }
+
+    .section__title {
+        font-size: 5.2rem;
+    }
+    
+    .section__paragraph {
+        width: 70%;
+        margin: 3.5rem auto;
+        padding: 1.5rem;
+        /* border: 1px solid; */
+        box-shadow: 2px 2px 5px .6px gray;
+        background-color: white;
+    }
+
+    .section__beer-styles {
+        position: relative;
+    }
+
+    .section__beer-styles__picture {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .section__beer-styles__picture img {
+        max-width: 640px;
+    }
+
+    .section__beer-styles__paragraph{
+        /* position: absolute;
+        top: 70%;
+        left: 0;
+        right: 0;
+        margin: 0 auto; */
+    }
+
+    .food-pairing__logo__fork, .food-pairing__logo__knife{
+        width: 120px;
+    }
+    .food-pairing__container {
+        margin: 30px auto;
+    }
+
+    .food-pairing__logo__fork {
+        --distanceX: -25vw;
+    }
+
+    .food-pairing__logo__knife {
+        --distanceX: 25vw;
+    }
+
+    .food-pairing__form {
+        width: 50vw;
+    }
 }
+
+@media (min-width: 1281px) {
+  
+    body {
+        background-image: url('../images/site_background.png');
+        
+    }
+
+    .container {
+        margin: 0 auto;
+        max-width: 80%;
+    }
+
+    .section__title {
+        font-size: 6.2rem;
+    }
+
+    .section__paragraph {
+        font-size: 1.8rem;
+    }
+
+    .food-pairing__logo__fork {
+        --distanceX: -15vw;
+    }
+
+    .food-pairing__logo__knife {
+        --distanceX: 15vw;
+    }
+
+    .food-pairing__form {
+        width: 30vw;
+    }
+
+  }

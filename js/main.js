@@ -37,6 +37,7 @@ menuItems.forEach(item => item.addEventListener('click', () => {
 const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
 const numberOfCarouselCells = beerStyles.length; //number of cells equals number of beer styles
 let theta, radius, sceneWidth, carouselCellWidth;
+const maxRadius = 630;
 let viewportWidth = window.innerWidth;
 window.onresize = recreateBeerStyleCarousel; //creates new version of carousel on window resize
 calculateCaruselParameters();
@@ -47,6 +48,7 @@ function calculateCaruselParameters() {
     theta = 360 / numberOfCarouselCells;
     let thetaRadians = Math.PI * theta / 180;
     radius = (viewportWidth - 30) / 2;
+    radius = (radius < maxRadius) ? radius : maxRadius;
     sceneWidth = Math.round(Math.tan(thetaRadians / 2) * radius * 2);
     carouselCellWidth = sceneWidth - 20;
 }
