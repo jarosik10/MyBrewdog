@@ -77,10 +77,10 @@ function createCarousel() {
         carouselCell.style.transform = 'rotateY' + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
         const carouselCellLink = document.createElement('a');
         carouselCellLink.href = "#" + beerStyles[i];
-        carouselCellLink.classList.add('beer-styles__cell__link');
+        carouselCellLink.classList.add('cell__link');
         const beerStyleName = document.createElement('span');
         beerStyleName.innerHTML = beerStyles[i];
-        beerStyleName.classList.add('beer-styles__cell__name');
+        beerStyleName.classList.add('cell__name');
         carousel.appendChild(carouselCell);
         carouselCell.appendChild(carouselCellLink);
         carouselCellLink.appendChild(beerStyleName);
