@@ -1,0 +1,630 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Vollkorn";
+}
+
+.header {
+  text-align: center;
+
+  &__title {
+    font-size: 3.2rem;
+    font-weight: 300;
+    font-variant: small-caps;
+    color: white;
+    z-index: 9999;
+    background-color: black;
+  }
+
+  &__picture {
+    img {
+      margin-top: 72px;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 72px;
+  padding: 0 15px;
+  width: 100%;
+  background-color: black;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+
+  &__logo {
+    max-width: 50px;
+    z-index: 9999;
+  }
+}
+
+.hamburger {
+  position: relative;
+  padding: 10px;
+  right: -10px;
+  border: none;
+  background: none;
+  z-index: 9999;
+  outline: none;
+
+  @mixin hamburger__bar {
+    width: 30px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: white;
+    transition: transform 0.2s ease-out;
+  }
+
+  &__bars {
+    position: relative;
+    @include hamburger__bar();
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+      left: 0;
+      @include hamburger__bar();
+    }
+
+    &::before {
+      top: -10px;
+    }
+
+    &::after {
+      top: 10px;
+    }
+  }
+
+  &--active &__bars {
+    background-color: transparent;
+    &::before {
+      transform: translateY(10px) rotate(135deg);
+    }
+    &::after {
+      transform: translateY(-10px) rotate(225deg);
+    }
+  }
+}
+
+.menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  z-index: 9998;
+
+  &::before,
+  &::after {
+    position: fixed;
+    content: "";
+    background-color: black;
+    z-index: -1;
+    height: 100%;
+    width: 51%;
+    transition: transform 0.35s ease-out;
+  }
+
+  &::before {
+    top: 0;
+    left: -51%;
+  }
+
+  &::after {
+    top: 0;
+    right: -51%;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      margin: 15px 0;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.2s ease-out, transform 0.1s ease-out;
+
+      a {
+        text-decoration: none;
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+
+        a {
+          text-shadow: 1px 2px 3px rgb(209, 140, 12);
+        }
+      }
+    }
+  }
+
+  &--active {
+    transform: translateY(100%);
+    &::before {
+      transform: translateX(100%);
+    }
+
+    &::after {
+      transform: translateX(-100%);
+    }
+
+    .menu__list__item {
+      opacity: 1;
+      transform: scale(1);
+
+      &:nth-child(1) {
+        transition: opacity 0.2s 0.35s ease-out, transform 0.15s 0.35s ease-out;
+      }
+      &:nth-child(2) {
+        transition: opacity 0.2s 0.45s ease-out, transform 0.15s 0.45s ease-out;
+      }
+      &:nth-child(3) {
+        transition: opacity 0.2s 0.55s ease-out, transform 0.15s 0.55s ease-out;
+      }
+      &:nth-child(4) {
+        transition: opacity 0.2s 0.65s ease-out, transform 0.15s 0.65s ease-out;
+      }
+    }
+
+    .beer-search__form {
+      opacity: 1;
+      transform: scaleX(1);
+      transition: opacity 0.2s 0.75s ease-out, transform 0.25s 0.75s ease-out;
+    }
+  }
+}
+
+.beer-search__form {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  width: 70%;
+  max-width: 300px;
+  height: 40px;
+  margin: 15px 0;
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: opacity 0.2s ease-out, transform 0.1s ease-out;
+
+  &__input {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    background-color: white;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 5px black;
+    text-align: center;
+    font-family: "Vollkorn";
+    font-size: 1.4rem;
+    transition: box-shadow 0.1s ease-out;
+
+    &:focus {
+      box-shadow: 0 0 10px rgb(209, 140, 12);
+    }
+  }
+
+  &__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2;
+    grid-row: 1;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    &__icon {
+      height: 18px;
+      color: #575757;
+    }
+
+    &:hover &__icon,
+    &:focus &__icon {
+      color: black;
+    }
+  }
+}
+
+.beer-search__form__input::placeholder {
+  color: black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  /* margin-top: 280px; */
+  background-color: white;
+  /* padding-top: 1px; */
+}
+
+.section {
+  font-size: 1.6rem;
+  text-align: justify;
+
+  &__header {
+    background-color: black;
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  &__title {
+    font-variant: small-caps;
+    font-size: 2.4rem;
+    margin: 0;
+    color: white;
+  }
+
+  &__paragraph {
+    color: black;
+  }
+
+  &__picture img {
+    width: 100%;
+  }
+}
+
+// .beers {
+//     margin: 72px 15px 0;
+//     font-size: 1.6rem;
+//     text-align: justify;
+// }
+
+.beer-styles__container {
+  width: 100%;
+}
+
+.beer-styles__scene {
+  position: relative;
+  margin: 0 auto;
+  perspective: 1000px;
+  max-width: 200px;
+  max-height: 200px;
+  pointer-events: none;
+}
+
+.beer-styles__carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s linear;
+
+  &__cell {
+    position: absolute;
+    max-width: 180px;
+    max-height: 180px;
+    top: 10px;
+    left: 10px;
+    background-image: url("../images/beer_style_300.png");
+    background-size: cover;
+    box-shadow: 0 0 10px 0.5px gray;
+
+    .cell__link {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      pointer-events: auto;
+    }
+
+    .cell__name {
+      font-size: 1.4rem;
+      text-align: center;
+      color: white;
+      background-color: black;
+      user-select: none;
+    }
+  }
+}
+
+.section__food-pairing {
+  --distanceX: 0px;
+  --defaultXPosition: 0px;
+  --defaultRotation: 0deg;
+}
+
+.food-pairing__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 100px;
+  margin: 20px auto;
+}
+
+.food-pairing__logo {
+  &__fork {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    transform: translateX(50px);
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    --distanceX: -35vw;
+    --defaultXPosition: 20px;
+    --defaultRotation: 45deg;
+    transform: rotate(var(--defaultRotation)) translatex(var(--defaultXPosition));
+    transform-origin: 50% 50%;
+    animation: moveInForkAndKnife 1s both;
+
+    &--active {
+      animation: moveOutForkAndKnife 1s both;
+    }
+  }
+
+  &__knife {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    transform: translateX(-50px);
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    --distanceX: 35vw;
+    --defaultXPosition: -20px;
+    --defaultRotation: -45deg;
+    transform: rotate(var(--defaultRotation)) translatex(var(--defaultXPosition));
+    transform-origin: 50% 50%;
+    animation: moveInForkAndKnife 1s both;
+
+    &--active {
+      animation: moveOutForkAndKnife 1s both;
+    }
+  }
+}
+
+.food-pairing__button {
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.food-pairing__form {
+  position: absolute;
+  width: 70vw;
+  height: 40px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  transform: scaleX(0);
+  transition: transform 0.6s ease;
+
+  &--active {
+    transition: transform 0.7s 0.3s ease;
+    transform: scaleX(1);
+  }
+
+  &__input {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    background-color: transparent;
+    border-top: 1px black solid;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom: 3px black solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    font-family: "Vollkorn";
+    font-size: 1.4rem;
+    outline: none;
+  }
+
+  &__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2;
+    grid-row: 1;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    &__icon {
+      height: 18px;
+      color: #575757;
+    }
+  }
+}
+
+@keyframes moveOutForkAndKnife {
+  30% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateX(var(--distanceX));
+  }
+}
+@keyframes moveInForkAndKnife {
+  0% {
+    transform: translateX(var(--distanceX));
+  }
+  70% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: rotate(var(--defaultRotation)) translateX(var(--defaultXPosition));
+  }
+}
+
+@media (min-width: 1025px) {
+  .navigation {
+    display: grid;
+    grid-template-columns: 1fr 50px 200px 1fr;
+    grid-template-rows: 72px;
+    grid-template-areas: "menu-list logo title searchbar";
+
+    &__logo {
+      grid-area: logo;
+    }
+  }
+
+  .header__title {
+    grid-area: title;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .menu {
+    position: static;
+    flex-direction: row;
+    width: 100%;
+    z-index: 9999;
+
+    &__list {
+      width: 100%;
+      flex-direction: row;
+      justify-content: start;
+      grid-area: menu-list;
+
+      &__item {
+        transform: scale(1);
+        opacity: 1;
+        margin-right: 25px;
+      }
+    }
+  }
+
+  .beer-search__form {
+    position: absolute;
+    opacity: 1;
+    transform: scaleX(1);
+    grid-area: searchbar;
+    right: 0;
+    top: 0;
+    width: 70%;
+  }
+
+  .section {
+    margin-bottom: 100px;
+
+    &__header {
+      width: fit-content;
+      padding: 0 4rem;
+    }
+
+    &__title {
+      font-size: 5.2rem;
+    }
+
+    &__paragraph {
+      width: 70%;
+      margin: 3.5rem auto;
+      padding: 1.5rem;
+      /* border: 1px solid; */
+      box-shadow: 2px 2px 5px 0.6px gray;
+      background-color: white;
+    }
+
+    &__picture {
+      display: flex;
+      justify-content: center;
+
+      img {
+        max-width: 640px;
+      }
+    }
+  }
+
+  .food-pairing__logo__fork,
+  .food-pairing__logo__knife {
+    width: 120px;
+  }
+  .food-pairing__container {
+    margin: 30px auto;
+  }
+
+  .food-pairing__logo__fork {
+    --distanceX: -25vw;
+  }
+
+  .food-pairing__logo__knife {
+    --distanceX: 25vw;
+  }
+
+  .food-pairing__form {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 1281px) {
+  body {
+    background-image: url("../images/site_background.png");
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: 80%;
+  }
+
+  .section__title {
+    font-size: 6.2rem;
+  }
+
+  .section__paragraph {
+    font-size: 1.8rem;
+  }
+
+  .food-pairing__logo__fork {
+    --distanceX: -15vw;
+  }
+
+  .food-pairing__logo__knife {
+    --distanceX: 15vw;
+  }
+
+  .food-pairing__form {
+    width: 30vw;
+  }
+}
