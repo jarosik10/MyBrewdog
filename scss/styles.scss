@@ -2,6 +2,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -31,6 +33,7 @@ body {
       margin-top: 72px;
       width: 100%;
       height: auto;
+      display: block;
     }
   }
 }
@@ -265,6 +268,7 @@ body {
   /* margin-top: 280px; */
   background-color: white;
   /* padding-top: 1px; */
+  min-height: 100vh;
 }
 
 .section {
@@ -496,6 +500,111 @@ body {
   }
 }
 
+.section__beer-list {
+  margin-top: 72px;
+}
+
+.beer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.list-options {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+  &__button {
+      width: 0;
+      height: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent; 
+      cursor: pointer;
+  }
+}
+.button__previous-page {
+  border-top: 17px solid transparent;
+  border-right: 34px solid black;
+  border-bottom: 17px solid transparent;
+}
+
+.button__next-page {
+  border-top: 17px solid transparent;
+  border-left: 34px solid black;
+  border-bottom: 17px solid transparent;
+}
+
+.page-number {
+  width: 34px;
+  height: 34px;
+  text-align: center;
+  font-family: "Vollkorn";
+  font-size: 2rem;
+}
+
+.beer {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  grid-template-areas: "name img"
+                        "abv img"
+                        "ibu img"
+                        ". img"
+                        "button img";
+  // border-bottom: 1px black solid;
+  // padding-bottom: 15px;
+  // background-color: rgb(255, 244, 244);
+  border: 2px black solid;
+  border-radius: 10px;
+  padding: 8px;
+  transition: transform .2s ease-in-out;
+
+  &:hover{
+    transform: scale(1.04);
+  }
+
+  &__name {
+    grid-area: name;
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 0 15px;
+  }
+
+  &__abv
+  {
+    grid-area: abv;
+  }
+
+  &__ibu {
+    grid-area: ibu;
+  }
+
+  &__button-modal {
+    grid-area: button;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding: 0 15px;
+    border: black 2px solid;
+    border-radius: 7px;
+    font-family: "Vollkorn";
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+
+  &__image {
+    height: 170px;
+    grid-area: img;
+    place-self: center;  
+  }
+}
+
 @media (min-width: 1025px) {
   .navigation {
     display: grid;
@@ -605,6 +714,7 @@ body {
 
   .container {
     margin: 0 auto;
+    padding: 0 20px;
     max-width: 80%;
   }
 

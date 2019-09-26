@@ -1,38 +1,3 @@
-console.log("hello im here!");
-
-const hamburger = document.querySelector('.hamburger');
-const menu = document.querySelector('.menu');
-const menuItems = document.querySelectorAll('.menu__list__item');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('hamburger--active');
-    menu.classList.toggle('menu--active');
-}, false);
-
-menuItems.forEach(item => item.addEventListener('click', () => {
-    hamburger.classList.remove  ('hamburger--active');
-    menu.classList.remove('menu--active');
-}));
-
-// let a = 1;
-// let url = 'https://api.punkapi.com/v2/beers?page=1&per_page=5';
-
-// fetch(url)
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data)
-//         // addBeerImages(data);
-//     });
-
-// function addBeerImages(data) {
-//     let beers = document.querySelector('.beers');
-//     for (const beer of data) {
-//         let beerImage = document.createElement('img');
-//         beerImage.src = beer.image_url;
-//         beers.appendChild(beerImage);
-//     }
-// }
-
 // ---Beer style carousel---
 const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
 const numberOfCarouselCells = beerStyles.length; //number of cells equals number of beer styles
@@ -166,3 +131,4 @@ foodPairingButton.addEventListener('click', () => {
     foodPairingKnife.classList.toggle('food-pairing__logo__knife--active');
     foodPairingForm.classList.toggle('food-pairing__form--active');
 });
+
