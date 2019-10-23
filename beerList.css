@@ -239,7 +239,7 @@ body {
     max-height: 180px;
     top: 10px;
     left: 10px;
-    background-image: url("../images/beer_style_300.png");
+    background-image: url(images/beer_style_300.png);
     background-size: cover;
     box-shadow: 0 0 10px 0.5px gray; }
     .beer-styles__carousel__cell .cell__link {
@@ -435,6 +435,7 @@ body {
     background-color: black;
     color: white;
     width: fit-content;
+    width: -moz-fit-content;
     padding: 0 15px; }
   .beer__abv {
     grid-area: abv; }
@@ -445,6 +446,7 @@ body {
     background-color: white;
     color: black;
     width: fit-content;
+    width: -moz-fit-content;
     padding: 0 15px;
     border: black 2px solid;
     border-radius: 7px;
@@ -494,6 +496,7 @@ body {
     margin-bottom: 100px; }
     .section__header {
       width: fit-content;
+      width: -moz-fit-content;
       padding: 0 4rem; }
     .section__title {
       font-size: 5.2rem; }
@@ -523,7 +526,7 @@ body {
 
 @media (min-width: 1281px) {
   body {
-    background-image: url("../images/site_background.png"); }
+    background-image: url(images/site_background.png); }
   .container {
     margin: 0 auto;
     padding: 0 20px;
@@ -538,3 +541,4 @@ body {
     --distanceX: 15vw; }
   .food-pairing__form {
     width: 30vw; } }
+
