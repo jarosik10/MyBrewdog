@@ -1,44 +1,48 @@
+import "../scss/styles.scss";
+
 const pageInput = document.querySelector('.page-number');
 const previousPage = document.querySelector('.button__previous-page');
 const nextPage = document.querySelector('.button__next-page');
+const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
-showBeerList();
+const itemsPerPage = 20;
 
-previousPage.addEventListener('click', ()=>{
+previousPage.addEventListener('click', async () => {
     if (pageNumber == 1) return;
-    pageNumber--;
-    clearBeerList();
-    showBeerList();
-    pageInput.setAttribute('value', pageNumber);
+    const url = createURL(pageNumber - 1, itemsPerPage);
+    const data = await getBeerData(url);
+    if (data.length != 0) {
+        clearBeerList();
+        addBeerImages(data);
+        pageInput.setAttribute('value', --pageNumber);
+    }
 });
 
-nextPage.addEventListener('click', ()=>{
-    pageNumber++;
-    clearBeerList();
-    showBeerList();
-    pageInput.setAttribute('value', pageNumber);
+
+nextPage.addEventListener('click', async () => {
+    const url = createURL(pageNumber + 1, itemsPerPage);
+    const data = await getBeerData(url);
+    if (data.length != 0) {
+        clearBeerList();
+        addBeerImages(data);
+        pageInput.setAttribute('value', ++pageNumber);
+    }
 });
 
-async function showBeerList(){
-    let url = createURL();
-    let data = await getBeerData(url);
-    addBeerImages(data);
-}
 
-function createURL() {
-     return `https://api.punkapi.com/v2/beers?page=${pageNumber}&per_page=20`;
-}
+const createURL = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
 
-async function getBeerData(url) {
-    const data = await fetch(url)
-    .then(response => response.json())
-    .catch(function(error) {
+const getBeerData = async (url) => {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
         console.log('Request failed', error);
-    });
-    return data;
+    }
 }
 
-function addBeerImages(data) {
+const addBeerImages = (data) => {
     let beerList = document.querySelector('.beer-list');
     for (const obj of data) {
         const beer = document.createElement('li');
@@ -65,14 +69,28 @@ function addBeerImages(data) {
         beerAbv.innerHTML = `ABV:${obj.abv}%`
         beerIbu.innerHTML = `IBU: ${obj.ibu}`;
         buttonModal.innerHTML = `Read more`;
+        buttonModal.value = obj.id;
         beerImage.src = obj.image_url;
     }
 }
 
-function clearBeerList(){
+const clearBeerList = () => {
     let beerList = document.querySelector('.beer-list');
-    while (beerList.firstChild){
+    while (beerList.firstChild) {
         beerList.removeChild(beerList.firstChild);
     }
 }
+
+(async function showFirstPage() {
+    const url = createURL(pageNumber, itemsPerPage);
+    const data = await getBeerData(url);
+    if (data.length != 0) {
+        clearBeerList();
+        addBeerImages(data);
+        console.log(data);
+        pageInput.setAttribute('value', pageNumber);
+    }
+})();
+
+
 

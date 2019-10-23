@@ -11,4 +11,3 @@ menuItems.forEach(item => item.addEventListener('click', () => {
     hamburger.classList.remove  ('hamburger--active');
     menu.classList.remove('menu--active');
 }));
-

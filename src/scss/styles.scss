@@ -573,6 +573,7 @@ body {
     background-color: black;
     color: white;
     width: fit-content;
+    width: -moz-fit-content;
     padding: 0 15px;
   }
 
@@ -590,6 +591,7 @@ body {
     background-color: white;
     color: black;
     width: fit-content;
+    width: -moz-fit-content;
     padding: 0 15px;
     border: black 2px solid;
     border-radius: 7px;
@@ -660,6 +662,7 @@ body {
 
     &__header {
       width: fit-content;
+      width: -moz-fit-content;
       padding: 0 4rem;
     }
 
