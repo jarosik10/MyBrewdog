@@ -32,6 +32,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "gift": "^0.10.2",
     "lodash": "^4.17.15",
     "lodash.template": "^4.5.0",
     "serialize-javascript": "^2.1.2"
