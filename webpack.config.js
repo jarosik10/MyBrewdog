@@ -16,7 +16,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({template: "./src/index.html", filename: 'index.html', chunks: ['main']}),
         new HtmlWebpackPlugin({template: "./src/beer-list.html", filename: 'beer-list.html', chunks: ['beerList']}),
-        new MiniCssExtractPlugin({filename: "[name].css"})
+        new MiniCssExtractPlugin({filename: "styles.css"})
     ],
     module: {
         rules: [
