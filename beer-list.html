@@ -7,7 +7,6 @@
     <title>MyBrewDog</title>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,700,900&display=swap" rel="stylesheet">
 <link href="beerList.css" rel="stylesheet"></head>
-
 <body>
     <header class="header">
         <nav class="navigation">
@@ -48,9 +47,20 @@
                 <label>Page:<input class="page-number" value="1" readonly></label>
                 <button class="list-options__button button__next-page"></button>
             </div>
+            <div class="beer-dialog__container">
+                <div class="beer-dialog">
+                    <div class='beer-dialog__name'></div>
+                    <div class='beer-dialog__abv'></div>
+                    <div class='beer-dialog__ibu'></div>
+                    <div class='beer-dialog__hops'></div>
+                    <div class='beer-dialog__malts'></div>
+                    <div class='beer-dialog__description'></div>
+                    <img class='beer-dialog__image'>
+                    <button class="beer-dialog__close-button"></button>
+                </div>
+            </div>
             <ul class="beer-list"></ul>
         </section>
     </main>
 <script type="text/javascript" src="beerList.bundle.js"></script></body>
-
 </html>

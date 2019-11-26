@@ -12,6 +12,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Vollkorn"; }
+  body.scroll-lock {
+    overflow: hidden; }
 
 .header {
   text-align: center; }
@@ -422,12 +424,12 @@ body {
 
 .beer {
   display: grid;
-  grid-template-columns: 1fr 120px;
+  grid-template-columns: 3fr 1fr;
   grid-template-areas: "name img" "abv img" "ibu img" ". img" "button img";
   border: 2px black solid;
   border-radius: 10px;
   padding: 8px;
-  transition: transform .2s ease-in-out; }
+  transition: transform 0.2s ease-in-out; }
   .beer:hover {
     transform: scale(1.04); }
   .beer__name {
@@ -454,9 +456,94 @@ body {
     font-size: 1.6rem;
     cursor: pointer; }
   .beer__image {
-    height: 170px;
+    height: 160px;
     grid-area: img;
     place-self: center; }
+
+.beer-dialog__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9999; }
+  .beer-dialog__container--active {
+    display: flex; }
+
+.beer-dialog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-areas: ". exit" "name name" "abv img" "ibu img" "hops img" "malts img" "description description";
+  gap: 10px;
+  width: 90%;
+  padding: 8px;
+  background: #ffff;
+  border: 2px solid black; }
+  .beer-dialog::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    top: -10px;
+    left: -10px;
+    background-color: #fff;
+    border: 2px solid black;
+    z-index: -1; }
+  .beer-dialog__name {
+    grid-area: name;
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-align: center;
+    padding: 0 15px;
+    font-size: 1.7rem; }
+  .beer-dialog__abv {
+    grid-area: abv; }
+  .beer-dialog__ibu {
+    grid-area: ibu; }
+  .beer-dialog__hops {
+    grid-area: hops;
+    text-align: initial; }
+  .beer-dialog__malts {
+    grid-area: malts;
+    text-align: initial; }
+  .beer-dialog__image {
+    height: 160px;
+    grid-area: img;
+    place-self: center; }
+  .beer-dialog__description {
+    padding-top: 10px;
+    border-top: 1px solid black;
+    grid-area: description; }
+  .beer-dialog__close-button {
+    padding: 11px;
+    justify-self: right;
+    border: none;
+    background: none;
+    outline: none;
+    position: relative;
+    grid-area: exit; }
+    .beer-dialog__close-button::before {
+      position: absolute;
+      content: "";
+      width: 22px;
+      height: 3px;
+      background-color: black;
+      left: 0;
+      transform: rotate(45deg); }
+    .beer-dialog__close-button::after {
+      position: absolute;
+      content: "";
+      width: 22px;
+      height: 3px;
+      background-color: black;
+      left: 0;
+      transform: rotate(-45deg); }
 
 @media (min-width: 1025px) {
   .navigation {

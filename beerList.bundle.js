@@ -108,7 +108,7 @@ const itemsPerPage = 20;
 
 previousPage.addEventListener('click', async () => {
     if (pageNumber == 1) return;
-    const url = createURL(pageNumber - 1, itemsPerPage);
+    const url = createURLforBeerList(pageNumber - 1, itemsPerPage);
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -119,7 +119,7 @@ previousPage.addEventListener('click', async () => {
 
 
 nextPage.addEventListener('click', async () => {
-    const url = createURL(pageNumber + 1, itemsPerPage);
+    const url = createURLforBeerList(pageNumber + 1, itemsPerPage);
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -128,8 +128,8 @@ nextPage.addEventListener('click', async () => {
     }
 });
 
-
-const createURL = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforBeer = (beerID) => `${baseURL}/${beerID}`;
 
 const getBeerData = async (url) => {
     try {
@@ -146,11 +146,11 @@ const addBeerImages = (data) => {
     for (const obj of data) {
         const beer = document.createElement('li');
         beer.classList.add('beer')
-        const beerName = document.createElement('span');
+        const beerName = document.createElement('div');
         beerName.classList.add('beer__name');
-        const beerAbv = document.createElement('span');
+        const beerAbv = document.createElement('div');
         beerAbv.classList.add('beer__abv');
-        const beerIbu = document.createElement('span');
+        const beerIbu = document.createElement('div');
         beerIbu.classList.add('beer__ibu');
         const beerImage = document.createElement('img');
         beerImage.classList.add('beer__image');
@@ -164,12 +164,14 @@ const addBeerImages = (data) => {
         beer.appendChild(buttonModal);
         beer.appendChild(beerImage);
 
-        beerName.innerHTML = obj.name;
-        beerAbv.innerHTML = `ABV:${obj.abv}%`
-        beerIbu.innerHTML = `IBU: ${obj.ibu}`;
+        const {name, abv, ibu, image_url, id} = obj;
+        beerName.innerHTML = name;
+        beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`
+        beerIbu.innerHTML = `IBU: ${ibu == null ? "Unknown" : ibu}`;
         buttonModal.innerHTML = `Read more`;
-        buttonModal.value = obj.id;
-        beerImage.src = obj.image_url;
+        buttonModal.value = id;
+        buttonModal.addEventListener('click', showBeerDetails)
+        beerImage.src = image_url;
     }
 }
 
@@ -180,13 +182,61 @@ const clearBeerList = () => {
     }
 }
 
+const beerDialogContainer = document.querySelector('.beer-dialog__container');
+const beerDialogCloseButton = document.querySelector('.beer-dialog__close-button');
+
+
+beerDialogCloseButton.addEventListener('click', () => {
+    beerDialogContainer.classList.remove('beer-dialog__container--active');
+    document.body.classList.remove('scroll-lock')
+})
+
+
+const openBeerDialog = () => {
+    beerDialogContainer.classList.add('beer-dialog__container--active');
+    document.body.classList.add('scroll-lock')
+}
+
+async function showBeerDetails() {
+    const beerID = this.value;
+    const url = createURLforBeer(beerID);
+    const data = await getBeerData(url);
+    const [beer] = data;
+    const {name, abv, ibu, ingredients:{hops, malt}, description, image_url} = beer;
+    const beerName = document.querySelector('.beer-dialog__name');
+    const beerAbv = document.querySelector('.beer-dialog__abv');
+    const beerIbu = document.querySelector('.beer-dialog__ibu');
+    const beerHops = document.querySelector('.beer-dialog__hops');
+    const beerMatls = document.querySelector('.beer-dialog__malts');
+    const beerDescription = document.querySelector('.beer-dialog__description');
+    const beerImage = document.querySelector('.beer-dialog__image');
+
+    const hopsNames = []
+    hops.map(hop => {
+        const {name} = hop;
+        if (!hopsNames.includes(name)) hopsNames.push(name)
+    })
+    const maltNames = []
+    malt.map(malt => {
+        const {name} = malt;
+        if (!maltNames.includes(name)) maltNames.push(name)
+    })
+    beerName.innerHTML = name;
+    beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`
+    beerIbu.innerHTML = `IBU: ${ibu == null ? "Unknown" : ibu}`
+    beerHops.innerHTML = `Hops: ${hopsNames.join(", ")}`;
+    beerMatls.innerHTML = `Malts: ${maltNames.join(", ")}`;
+    beerDescription.innerHTML = description;
+    beerImage.src = image_url;
+    openBeerDialog();   
+}
+
 (async function showFirstPage() {
-    const url = createURL(pageNumber, itemsPerPage);
+    const url = createURLforBeerList(pageNumber, itemsPerPage);
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
         addBeerImages(data);
-        console.log(data);
         pageInput.setAttribute('value', pageNumber);
     }
 })();
