@@ -278,6 +278,17 @@ body {
 .section {
   font-size: 1.6rem;
   text-align: justify;
+  padding-top: 72px;
+  margin-top: -72px;
+  // &:before{
+  //   content: ""; 
+  //   display: block; 
+  //   margin: -72px 0 0;
+  //   height: 72px; 
+  //   // visibility: hidden; 
+  //   pointer-events: none;
+  //   background-color: green;
+  // }
 
   &__header {
     background-color: black;
@@ -505,7 +516,7 @@ body {
 }
 
 .section__beer-list {
-  margin-top: 72px;
+  margin-top: 0;
 }
 
 .beer-list {
@@ -642,6 +653,7 @@ body {
     "description description";
   gap: 10px;
   width: 90%;
+  max-width: 666px;
   padding: 8px;
   background: #ffff;
   border: 2px solid black;
@@ -663,8 +675,6 @@ body {
     background-color: black;
     color: white;
     text-align: center;
-    text-align: center;
-    padding: 0 15px;
     font-size: 1.7rem;
   }
 
@@ -687,7 +697,7 @@ body {
   }
 
   &__image {
-    height: 160px;
+    height: 180px;
     grid-area: img;
     place-self: center;
   }
@@ -695,19 +705,21 @@ body {
   &__description {
     padding-top: 10px;
     border-top: 1px solid black;
-
     grid-area: description;
   }
 
   &__close-button {
+    width: 22px;
+    height: 22px;
     padding: 11px;
     justify-self: right;
     border: none;
     background: none;
     outline: none;
     position: relative;
+    cursor: pointer;
     grid-area: exit;
-    
+
     &::before {
       position: absolute;
       content: "";
@@ -811,6 +823,35 @@ body {
     }
   }
 
+  .beer-dialog {
+    grid-template-areas:
+      "name exit"
+      "abv img"
+      "ibu img"
+      "hops img"
+      "malts img"
+      ". img"
+      "description description";
+    width: 65%;
+    max-width: 900px;
+
+    &__name {
+      grid-column-end: exit;
+      font-size: 2.1rem;
+      text-align: center;
+      width: fit-content;
+      width: -moz-fit-content;
+      padding: 0 30px;
+      margin: 0 auto;
+      align-self: start;
+      margin-bottom: 20px;
+    }
+
+    &__image {
+      height: 200px;
+    }
+  }
+
   .food-pairing__logo__fork,
   .food-pairing__logo__knife {
     width: 120px;
@@ -861,5 +902,17 @@ body {
 
   .food-pairing__form {
     width: 30vw;
+  }
+
+  .beer-dialog {
+    font-size: 1.8rem;
+
+    &__name {
+      font-size: 2.3rem;
+    }
+
+    &__image {
+      height: 220px;
+    }
   }
 }
