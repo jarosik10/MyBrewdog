@@ -203,7 +203,9 @@ body {
 
 .section {
   font-size: 1.6rem;
-  text-align: justify; }
+  text-align: justify;
+  padding-top: 72px;
+  margin-top: -72px; }
   .section__header {
     background-color: black;
     text-align: center;
@@ -381,7 +383,7 @@ body {
     transform: rotate(var(--defaultRotation)) translateX(var(--defaultXPosition)); } }
 
 .section__beer-list {
-  margin-top: 72px; }
+  margin-top: 0; }
 
 .beer-list {
   list-style: none;
@@ -481,6 +483,7 @@ body {
   grid-template-areas: ". exit" "name name" "abv img" "ibu img" "hops img" "malts img" "description description";
   gap: 10px;
   width: 90%;
+  max-width: 666px;
   padding: 8px;
   background: #ffff;
   border: 2px solid black; }
@@ -499,8 +502,6 @@ body {
     background-color: black;
     color: white;
     text-align: center;
-    text-align: center;
-    padding: 0 15px;
     font-size: 1.7rem; }
   .beer-dialog__abv {
     grid-area: abv; }
@@ -513,7 +514,7 @@ body {
     grid-area: malts;
     text-align: initial; }
   .beer-dialog__image {
-    height: 160px;
+    height: 180px;
     grid-area: img;
     place-self: center; }
   .beer-dialog__description {
@@ -521,12 +522,15 @@ body {
     border-top: 1px solid black;
     grid-area: description; }
   .beer-dialog__close-button {
+    width: 22px;
+    height: 22px;
     padding: 11px;
     justify-self: right;
     border: none;
     background: none;
     outline: none;
     position: relative;
+    cursor: pointer;
     grid-area: exit; }
     .beer-dialog__close-button::before {
       position: absolute;
@@ -599,6 +603,22 @@ body {
       justify-content: center; }
       .section__picture img {
         max-width: 640px; }
+  .beer-dialog {
+    grid-template-areas: "name exit" "abv img" "ibu img" "hops img" "malts img" ". img" "description description";
+    width: 65%;
+    max-width: 900px; }
+    .beer-dialog__name {
+      grid-column-end: exit;
+      font-size: 2.1rem;
+      text-align: center;
+      width: fit-content;
+      width: -moz-fit-content;
+      padding: 0 30px;
+      margin: 0 auto;
+      align-self: start;
+      margin-bottom: 20px; }
+    .beer-dialog__image {
+      height: 200px; }
   .food-pairing__logo__fork,
   .food-pairing__logo__knife {
     width: 120px; }
@@ -627,5 +647,11 @@ body {
   .food-pairing__logo__knife {
     --distanceX: 15vw; }
   .food-pairing__form {
-    width: 30vw; } }
+    width: 30vw; }
+  .beer-dialog {
+    font-size: 1.8rem; }
+    .beer-dialog__name {
+      font-size: 2.3rem; }
+    .beer-dialog__image {
+      height: 220px; } }
 

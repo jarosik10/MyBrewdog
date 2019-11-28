@@ -298,7 +298,7 @@ hamburger.addEventListener('click', () => {
 }, false);
 
 menuItems.forEach(item => item.addEventListener('click', () => {
-    hamburger.classList.remove  ('hamburger--active');
+    hamburger.classList.remove('hamburger--active');
     menu.classList.remove('menu--active');
 }));
 
