@@ -1,4 +1,5 @@
 import "../scss/styles.scss";
+import {getQueryVariable} from "./getUrlVariable"
 
 const pageInput = document.querySelector('.page-number');
 const previousPage = document.querySelector('.button__previous-page');
@@ -6,10 +7,25 @@ const nextPage = document.querySelector('.button__next-page');
 const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
+const searchedBeerName = getQueryVariable('beer')
+const searchedFood = getQueryVariable('food')
+const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
+const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforFood = (food, pageNumber, itemsPerPage) => `${baseURL}?food=${food}&page=${pageNumber}&per_page=${itemsPerPage}`;
 
 previousPage.addEventListener('click', async () => {
     if (pageNumber == 1) return;
-    const url = createURLforBeerList(pageNumber - 1, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber - 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber - 1, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber - 1, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -20,7 +36,16 @@ previousPage.addEventListener('click', async () => {
 
 
 nextPage.addEventListener('click', async () => {
-    const url = createURLforBeerList(pageNumber + 1, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber + 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber + 1, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber + 1, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -28,9 +53,6 @@ nextPage.addEventListener('click', async () => {
         pageInput.setAttribute('value', ++pageNumber);
     }
 });
-
-const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
-const createURLforBeer = (beerID) => `${baseURL}/${beerID}`;
 
 const getBeerData = async (url) => {
     try {
@@ -100,7 +122,7 @@ const openBeerDialog = () => {
 
 async function showBeerDetails() {
     const beerID = this.value;
-    const url = createURLforBeer(beerID);
+    const url = createURLforBeerID(beerID);
     const data = await getBeerData(url);
     const [beer] = data;
     const {name, abv, ibu, ingredients:{hops, malt}, description, image_url} = beer;
@@ -133,7 +155,16 @@ async function showBeerDetails() {
 }
 
 (async function showFirstPage() {
-    const url = createURLforBeerList(pageNumber, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
