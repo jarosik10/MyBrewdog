@@ -22,10 +22,9 @@
                     <li class="menu__list__item"><a href="index.html#food-pairing">Food pairing</a></li>
                     <li class="menu__list__item"><a href="beer-list.html">Beer list</a></li>
                 </ul>
-                <form class="beer-search__form" type="search">
-                    <input class="beer-search__form__input" role="search" placeholder="search brewdog beer...">
-                    <button onclick='console.log("button search beer clicked")' class="beer-search__form__submit"
-                        type="submit">
+                <form class="beer-search__form" action="beer-list.html" method="GET">
+                    <input class="beer-search__form__input" name="beer" type="search" role="search" placeholder="search brewdog beer...">
+                    <button class="beer-search__form__submit" type="submit">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                             class="beer-search__form__submit__icon" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
