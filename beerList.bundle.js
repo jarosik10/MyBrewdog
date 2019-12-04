@@ -97,6 +97,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ "./src/scss/styles.scss");
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _getUrlVariable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getUrlVariable */ "./src/js/getUrlVariable.js");
+
 
 
 const pageInput = document.querySelector('.page-number');
@@ -105,10 +107,25 @@ const nextPage = document.querySelector('.button__next-page');
 const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
+const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["getQueryVariable"])('beer')
+const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["getQueryVariable"])('food')
+const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
+const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforFood = (food, pageNumber, itemsPerPage) => `${baseURL}?food=${food}&page=${pageNumber}&per_page=${itemsPerPage}`;
 
 previousPage.addEventListener('click', async () => {
     if (pageNumber == 1) return;
-    const url = createURLforBeerList(pageNumber - 1, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber - 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber - 1, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber - 1, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -119,7 +136,16 @@ previousPage.addEventListener('click', async () => {
 
 
 nextPage.addEventListener('click', async () => {
-    const url = createURLforBeerList(pageNumber + 1, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber + 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber + 1, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber + 1, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -127,9 +153,6 @@ nextPage.addEventListener('click', async () => {
         pageInput.setAttribute('value', ++pageNumber);
     }
 });
-
-const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
-const createURLforBeer = (beerID) => `${baseURL}/${beerID}`;
 
 const getBeerData = async (url) => {
     try {
@@ -199,7 +222,7 @@ const openBeerDialog = () => {
 
 async function showBeerDetails() {
     const beerID = this.value;
-    const url = createURLforBeer(beerID);
+    const url = createURLforBeerID(beerID);
     const data = await getBeerData(url);
     const [beer] = data;
     const {name, abv, ibu, ingredients:{hops, malt}, description, image_url} = beer;
@@ -232,7 +255,16 @@ async function showBeerDetails() {
 }
 
 (async function showFirstPage() {
-    const url = createURLforBeerList(pageNumber, itemsPerPage);
+    let url;
+    if (searchedBeerName) {
+        url = createURLforBeerName(searchedBeerName, pageNumber, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber, itemsPerPage); 
+    }
+    else {
+        url = createURLforBeerList(pageNumber, itemsPerPage);
+    }
     const data = await getBeerData(url);
     if (data.length != 0) {
         clearBeerList();
@@ -244,6 +276,28 @@ async function showBeerDetails() {
 
 
 
+
+/***/ }),
+
+/***/ "./src/js/getUrlVariable.js":
+/*!**********************************!*\
+  !*** ./src/js/getUrlVariable.js ***!
+  \**********************************/
+/*! exports provided: getQueryVariable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQueryVariable", function() { return getQueryVariable; });
+function getQueryVariable(variable) {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
 
 /***/ }),
 
