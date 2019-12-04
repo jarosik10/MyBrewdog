@@ -8,12 +8,20 @@ const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
 const searchedBeerName = getQueryVariable('beer')
+const searchedFood = getQueryVariable('food')
+const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
+const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
+const createURLforFood = (food, pageNumber, itemsPerPage) => `${baseURL}?food=${food}&page=${pageNumber}&per_page=${itemsPerPage}`;
 
 previousPage.addEventListener('click', async () => {
     if (pageNumber == 1) return;
     let url;
-    if (searchedBeerName){
+    if (searchedBeerName) {
         url = createURLforBeerName(searchedBeerName, pageNumber - 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber - 1, itemsPerPage); 
     }
     else {
         url = createURLforBeerList(pageNumber - 1, itemsPerPage);
@@ -29,8 +37,11 @@ previousPage.addEventListener('click', async () => {
 
 nextPage.addEventListener('click', async () => {
     let url;
-    if (searchedBeerName){
+    if (searchedBeerName) {
         url = createURLforBeerName(searchedBeerName, pageNumber + 1, itemsPerPage); 
+    }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber + 1, itemsPerPage); 
     }
     else {
         url = createURLforBeerList(pageNumber + 1, itemsPerPage);
@@ -42,10 +53,6 @@ nextPage.addEventListener('click', async () => {
         pageInput.setAttribute('value', ++pageNumber);
     }
 });
-
-const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
-const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
-const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
 
 const getBeerData = async (url) => {
     try {
@@ -149,11 +156,14 @@ async function showBeerDetails() {
 
 (async function showFirstPage() {
     let url;
-    if (searchedBeerName){
+    if (searchedBeerName) {
         url = createURLforBeerName(searchedBeerName, pageNumber, itemsPerPage); 
     }
+    else if (searchedFood) {
+        url = createURLforFood(searchedFood, pageNumber, itemsPerPage); 
+    }
     else {
-        url = createURLforBeerList(pageNumber, itemsPerPage)
+        url = createURLforBeerList(pageNumber, itemsPerPage);
     }
     const data = await getBeerData(url);
     if (data.length != 0) {
