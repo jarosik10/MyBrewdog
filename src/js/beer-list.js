@@ -34,7 +34,6 @@ previousPage.addEventListener('click', async () => {
     }
 });
 
-
 nextPage.addEventListener('click', async () => {
     let url;
     if (searchedBeerName) {
@@ -107,7 +106,6 @@ const clearBeerList = () => {
 
 const beerDialogContainer = document.querySelector('.beer-dialog__container');
 const beerDialogCloseButton = document.querySelector('.beer-dialog__close-button');
-
 
 beerDialogCloseButton.addEventListener('click', () => {
     beerDialogContainer.classList.remove('beer-dialog__container--active');
