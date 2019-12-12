@@ -748,7 +748,7 @@ body {
     grid-template-rows: 72px;
     grid-template-areas: "menu-list logo title searchbar";
 
-    &__logo {
+    &__logo__link {
       grid-area: logo;
     }
   }
