@@ -555,7 +555,7 @@ body {
     grid-template-columns: 1fr 50px 200px 1fr;
     grid-template-rows: 72px;
     grid-template-areas: "menu-list logo title searchbar"; }
-    .navigation__logo {
+    .navigation__logo__link {
       grid-area: logo; }
   .header__title {
     grid-area: title; }
