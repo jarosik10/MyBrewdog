@@ -1,5 +1,5 @@
 import "../scss/styles.scss";
-import {getQueryVariable} from "./getUrlVariable"
+import getQueryVariable from "./getUrlVariable"
 
 const pageInput = document.querySelector('.page-number');
 const previousPage = document.querySelector('.button__previous-page');
