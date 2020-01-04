@@ -280,6 +280,7 @@ body {
   text-align: justify;
   padding-top: 72px;
   margin-top: -72px;
+  margin-bottom: 20px;
   // &:before{
   //   content: ""; 
   //   display: block; 
@@ -741,6 +742,41 @@ body {
   }
 }
 
+.footer {
+  background-color: black;
+  padding: 20px;
+  
+  &__author {
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+
+.contact__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.contact__icon {
+  width: 35px;
+}
+
+.contact__text {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 10px;
+}
+
+
 @media (min-width: 1025px) {
   .navigation {
     display: grid;
@@ -871,6 +907,17 @@ body {
   .food-pairing__form {
     width: 50vw;
   }
+
+  .footer {
+    &__author {
+      font-size: 1.6rem;
+    }
+  
+    &__contact {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
 }
 
 @media (min-width: 1281px) {
@@ -914,5 +961,10 @@ body {
     &__image {
       height: 220px;
     }
+  }
+
+  .footer {
+    max-width: 80%;
+    margin: 0 auto;
   }
 }
