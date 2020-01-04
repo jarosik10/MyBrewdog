@@ -205,7 +205,8 @@ body {
   font-size: 1.6rem;
   text-align: justify;
   padding-top: 72px;
-  margin-top: -72px; }
+  margin-top: -72px;
+  margin-bottom: 20px; }
   .section__header {
     background-color: black;
     text-align: center;
@@ -549,6 +550,32 @@ body {
       left: 0;
       transform: rotate(-45deg); }
 
+.footer {
+  background-color: black;
+  padding: 20px; }
+  .footer__author {
+    font-size: 1.5rem;
+    color: white;
+    text-align: center; }
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px; }
+
+.contact__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 10px; }
+
+.contact__icon {
+  width: 35px; }
+
+.contact__text {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 10px; }
+
 @media (min-width: 1025px) {
   .navigation {
     display: grid;
@@ -629,7 +656,12 @@ body {
   .food-pairing__logo__knife {
     --distanceX: 25vw; }
   .food-pairing__form {
-    width: 50vw; } }
+    width: 50vw; }
+  .footer__author {
+    font-size: 1.6rem; }
+  .footer__contact {
+    flex-direction: row;
+    justify-content: center; } }
 
 @media (min-width: 1281px) {
   body {
@@ -653,5 +685,8 @@ body {
     .beer-dialog__name {
       font-size: 2.3rem; }
     .beer-dialog__image {
-      height: 220px; } }
+      height: 220px; }
+  .footer {
+    max-width: 80%;
+    margin: 0 auto; } }
 
