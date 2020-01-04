@@ -48,9 +48,8 @@ function watch() {
     gulp.watch(['./src/scss/**/*.scss','./src/*.html', './src/js/**/*.js']).on('change',gulp.series(assets, browserSync.reload)) ;
 }
 
-function deploy(done) {
-    gulp.src('./dist/**/*').pipe(ghPages());
-    done();
+function deploy() {
+    return gulp.src('./dist/**/*').pipe(ghPages());
 }
 
 exports.style = style;
