@@ -1,5 +1,5 @@
 import "../scss/styles.scss";
-import {BeerStyleCarousel} from "./beerStyleCarousel";
+import BeerStyleCarousel from "./beerStyleCarousel";
 
 const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
 const maxRadius = 630;

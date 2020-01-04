@@ -1,5 +1,5 @@
-import { mobileAndTabletCheck } from "./mobileAndTabletCheck";
-export class BeerStyleCarousel {
+import mobileAndTabletCheck from "./mobileAndTabletCheck";
+export default class BeerStyleCarousel {
     constructor(beerStyles, maxRadius) {
         this.beerStyles = beerStyles;
         this.maxRadius = maxRadius;
