@@ -1,6 +1,8 @@
 *,
 *::before,
 *::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -121,7 +123,6 @@ body {
   padding: 0;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
   z-index: 9998;
 
   &::before,
@@ -347,7 +348,7 @@ body {
     left: 10px;
     background-image: url("../images/beer_style_300.png");
     background-size: cover;
-    box-shadow: 0 0 10px 0.5px gray;
+    box-shadow: 0 0 6px 0.5px gray;
 
     .cell__link {
       width: 100%;
@@ -362,9 +363,10 @@ body {
     .cell__name {
       font-size: 1.4rem;
       text-align: center;
-      color: white;
-      background-color: black;
+      color: black;
+      text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
       user-select: none;
+      font-weight: 700;
     }
   }
 }
@@ -576,6 +578,7 @@ body {
   // border-bottom: 1px black solid;
   // padding-bottom: 15px;
   // background-color: rgb(255, 244, 244);
+  row-gap: 5px;
   border: 2px black solid;
   border-radius: 10px;
   padding: 8px;
@@ -587,11 +590,17 @@ body {
 
   &__name {
     grid-area: name;
-    background-color: black;
-    color: white;
-    width: fit-content;
-    width: -moz-fit-content;
-    padding: 0 15px;
+    padding-right: 15px;
+    overflow: hidden;
+    
+    span {
+      background: black;
+      color: white;
+      -webkit-box-decoration-break: clone;
+      -o-box-decoration-break: clone;
+      box-decoration-break: clone;
+      padding: .5px 15px;
+    }
   }
 
   &__abv {
@@ -606,6 +615,7 @@ body {
     grid-area: button;
     background-color: white;
     color: black;
+    display: table;
     width: fit-content;
     width: -moz-fit-content;
     padding: 0 15px;
@@ -831,8 +841,7 @@ body {
     margin-bottom: 100px;
 
     &__header {
-      width: fit-content;
-      width: -moz-fit-content;
+      display: table;
       padding: 0 4rem;
     }
 
@@ -875,8 +884,7 @@ body {
       grid-column-end: exit;
       font-size: 2.1rem;
       text-align: center;
-      width: fit-content;
-      width: -moz-fit-content;
+      display: table;
       padding: 0 30px;
       margin: 0 auto;
       align-self: start;
@@ -907,6 +915,17 @@ body {
   .food-pairing__form {
     width: 50vw;
   }
+
+  .beer-styles__carousel {
+    &__cell {
+      box-shadow: 0 0 10px 0.5px gray;
+
+      .cell__name {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
 
   .footer {
     &__author {
