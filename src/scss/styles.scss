@@ -629,7 +629,8 @@ body {
   &__image {
     height: 160px;
     grid-area: img;
-    place-self: center;
+    align-self: center;
+    justify-self: center;
   }
 }
 
@@ -710,7 +711,8 @@ body {
   &__image {
     height: 180px;
     grid-area: img;
-    place-self: center;
+    align-self: center;
+    justify-self: center;
   }
 
   &__description {
