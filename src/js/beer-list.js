@@ -68,8 +68,9 @@ const addBeerImages = (data) => {
     for (const obj of data) {
         const beer = document.createElement('li');
         beer.classList.add('beer')
-        const beerName = document.createElement('div');
-        beerName.classList.add('beer__name');
+        const beerNameContainer = document.createElement('div');
+        beerNameContainer.classList.add('beer__name');
+        const beerName = document.createElement('span');
         const beerAbv = document.createElement('div');
         beerAbv.classList.add('beer__abv');
         const beerIbu = document.createElement('div');
@@ -80,7 +81,8 @@ const addBeerImages = (data) => {
         buttonModal.classList.add('beer__button-modal');
 
         beerList.appendChild(beer);
-        beer.appendChild(beerName);
+        beer.appendChild(beerNameContainer);
+        beerNameContainer.appendChild(beerName);
         beer.appendChild(beerAbv);
         beer.appendChild(beerIbu);
         beer.appendChild(buttonModal);
