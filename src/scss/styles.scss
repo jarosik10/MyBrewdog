@@ -719,6 +719,8 @@ body {
     padding-top: 10px;
     border-top: 1px solid black;
     grid-area: description;
+    overflow-y: auto;
+    max-height: 40vh;
   }
 
   &__close-button {
@@ -788,6 +790,29 @@ body {
   margin: 0 10px;
 }
 
+@media (max-height: 450px) {
+  .menu {
+    &__list {
+      flex-direction: row;
+      
+      &__item {
+        margin: 15px
+      }
+    }
+  }
+
+  .beer-dialog {
+    gap: 5px;
+
+    &__description {
+      max-height: 25vh;
+    }
+
+    &__image {
+      height: 100px;
+    }
+  }
+}
 
 @media (min-width: 1025px) {
   .navigation {
