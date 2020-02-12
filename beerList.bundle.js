@@ -107,8 +107,8 @@ const nextPage = document.querySelector('.button__next-page');
 const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
-const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["getQueryVariable"])('beer')
-const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["getQueryVariable"])('food')
+const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('beer')
+const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('food')
 const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
 const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
 const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
@@ -168,8 +168,9 @@ const addBeerImages = (data) => {
     for (const obj of data) {
         const beer = document.createElement('li');
         beer.classList.add('beer')
-        const beerName = document.createElement('div');
-        beerName.classList.add('beer__name');
+        const beerNameContainer = document.createElement('div');
+        beerNameContainer.classList.add('beer__name');
+        const beerName = document.createElement('span');
         const beerAbv = document.createElement('div');
         beerAbv.classList.add('beer__abv');
         const beerIbu = document.createElement('div');
@@ -180,7 +181,8 @@ const addBeerImages = (data) => {
         buttonModal.classList.add('beer__button-modal');
 
         beerList.appendChild(beer);
-        beer.appendChild(beerName);
+        beer.appendChild(beerNameContainer);
+        beerNameContainer.appendChild(beerName);
         beer.appendChild(beerAbv);
         beer.appendChild(beerIbu);
         beer.appendChild(buttonModal);
@@ -281,12 +283,12 @@ async function showBeerDetails() {
 /*!**********************************!*\
   !*** ./src/js/getUrlVariable.js ***!
   \**********************************/
-/*! exports provided: getQueryVariable */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQueryVariable", function() { return getQueryVariable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return getQueryVariable; });
 function getQueryVariable(variable) {
        var query = window.location.search.substring(1);
        var vars = query.split("&");

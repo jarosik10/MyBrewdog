@@ -90,12 +90,12 @@
 /*!*************************************!*\
   !*** ./src/js/beerStyleCarousel.js ***!
   \*************************************/
-/*! exports provided: BeerStyleCarousel */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BeerStyleCarousel", function() { return BeerStyleCarousel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BeerStyleCarousel; });
 /* harmony import */ var _mobileAndTabletCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mobileAndTabletCheck */ "./src/js/mobileAndTabletCheck.js");
 
 class BeerStyleCarousel {
@@ -170,7 +170,7 @@ class BeerStyleCarousel {
         let rotation = 0;
         let rotationForce = 252 * Math.pow(this.radius, -1.2); //rotation force equation calculated experimentally
 
-        if (Object(_mobileAndTabletCheck__WEBPACK_IMPORTED_MODULE_0__["mobileAndTabletCheck"])()) {
+        if (Object(_mobileAndTabletCheck__WEBPACK_IMPORTED_MODULE_0__["default"])()) {
             field.ontouchstart = (event) => {
                 event = event || window.event;
                 // event.preventDefault();
@@ -237,7 +237,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbier', 'Saison', 'Pilsner', 'Russian Imperial Stout (RIS)', 'Oatmeal Stout', 'Baltic Porter', 'Barley Wine', 'Lambic'];
 const maxRadius = 630;
-const beerStyleCarousel = new _beerStyleCarousel__WEBPACK_IMPORTED_MODULE_1__["BeerStyleCarousel"](beerStyles, maxRadius);
+const beerStyleCarousel = new _beerStyleCarousel__WEBPACK_IMPORTED_MODULE_1__["default"](beerStyles, maxRadius);
 
 //creates new version of carousel on window resize
 window.onresize = () =>{
@@ -266,12 +266,12 @@ foodPairingButton.addEventListener('click', () => {
 /*!****************************************!*\
   !*** ./src/js/mobileAndTabletCheck.js ***!
   \****************************************/
-/*! exports provided: mobileAndTabletCheck */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mobileAndTabletCheck", function() { return mobileAndTabletCheck; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return mobileAndTabletCheck; });
 //Detects mobile and tablet browser (https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser)
 function mobileAndTabletCheck() {
     var check = false;
