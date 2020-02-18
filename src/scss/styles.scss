@@ -27,7 +27,7 @@ body {
 
   &__title {
     font-size: 3.2rem;
-    font-weight: 300;
+    font-weight: 400;
     font-variant: small-caps;
     color: white;
     z-index: 9999;
@@ -270,9 +270,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 20px;
-  /* margin-top: 280px; */
   background-color: white;
-  /* padding-top: 1px; */
   min-height: 100vh;
 }
 
@@ -282,15 +280,6 @@ body {
   padding-top: 72px;
   margin-top: -72px;
   margin-bottom: 20px;
-  // &:before{
-  //   content: ""; 
-  //   display: block; 
-  //   margin: -72px 0 0;
-  //   height: 72px; 
-  //   // visibility: hidden; 
-  //   pointer-events: none;
-  //   background-color: green;
-  // }
 
   &__header {
     background-color: black;
@@ -313,12 +302,6 @@ body {
     width: 100%;
   }
 }
-
-// .beers {
-//     margin: 72px 15px 0;
-//     font-size: 1.6rem;
-//     text-align: justify;
-// }
 
 .beer-styles__container {
   width: 100%;
@@ -536,6 +519,7 @@ body {
   max-width: 300px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 20px auto;
   &__button {
     width: 0;
@@ -559,11 +543,12 @@ body {
 }
 
 .page-number {
-  width: 34px;
-  height: 34px;
-  text-align: center;
-  font-family: "Vollkorn";
-  font-size: 2rem;
+  margin: 0;
+
+  &__value {
+    margin-left: 16px;
+    font-size: 2rem;
+  }
 }
 
 .beer {
@@ -575,9 +560,6 @@ body {
     "ibu img"
     ". img"
     "button img";
-  // border-bottom: 1px black solid;
-  // padding-bottom: 15px;
-  // background-color: rgb(255, 244, 244);
   row-gap: 5px;
   border: 2px black solid;
   border-radius: 10px;
@@ -880,7 +862,6 @@ body {
       width: 70%;
       margin: 3.5rem auto;
       padding: 1.5rem;
-      /* border: 1px solid; */
       box-shadow: 2px 2px 5px 0.6px gray;
       background-color: white;
     }
