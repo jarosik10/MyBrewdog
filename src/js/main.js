@@ -5,14 +5,12 @@ const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbi
 const maxRadius = 630;
 const beerStyleCarousel = new BeerStyleCarousel(beerStyles, maxRadius);
 
-//creates new version of carousel on window resize
 window.onresize = () =>{
     beerStyleCarousel.recreateBeerStyleCarousel();
-} 
+};
 
 beerStyleCarousel.createCarousel();
 
-//Food pairing
 const foodPairingButton = document.querySelector('.food-pairing__button');
 const foodPairingFork = document.querySelector('.food-pairing__logo__fork');
 const foodPairingKnife = document.querySelector('.food-pairing__logo__knife');
