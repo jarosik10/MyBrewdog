@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyBrewDog</title>
-    <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,700" rel="stylesheet">
 <link href="styles.css" rel="stylesheet"></head>
 <body>
     <header class="header">
         <nav class="navigation">
             <a class = "navigation__logo__link" href="./">
-                <img class="navigation__logo" src="images/brewdog-logo.png" alt="Brewdog logo">
+                <img class="navigation__logo" src="images/brewdog-logo.png" alt="Brewdog.">
             </a>
             <h1 class="header__title">MyBrewDog</h1>
-            <button class="hamburger">
-                <div class="hamburger__bars"></div>
+            <button class="hamburger"aria-label="Open the menu">
+                <div class="hamburger__bars" aria-hidden="true"></div>
             </button>
             <div class="menu">
                 <ul class="menu__list">
@@ -25,8 +25,8 @@
                     <li class="menu__list__item"><a href="beer-list.html">Beer list</a></li>
                 </ul>
                 <form class="beer-search__form" action="beer-list.html" method="GET">
-                    <input class="beer-search__form__input" name="beer" type="search" role="search" placeholder="search brewdog beer...">
-                    <button class="beer-search__form__submit" type="submit">
+                    <input class="beer-search__form__input" name="beer" type="search" role="search" required aria-label="Beer name" placeholder="search brewdog beer...">
+                    <button class="beer-search__form__submit" aria-label="Submit beer search" type="submit">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                             class="beer-search__form__submit__icon" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
@@ -40,7 +40,7 @@
         <picture class="header__picture">
             <source media="(min-width: 1600px)" srcset="images/cheers_1920.png" />
             <source media="(min-width: 1025px)" srcset="images/cheers_1200.png" />
-            <img src="images/cheers_640.png" alt="Beer cheers">
+            <img src="images/cheers_640.png" alt="Beer cheers.">
         </picture>
     </header>
     <main class="container">
@@ -75,9 +75,9 @@
                 <h2 class="section__title">Food pairing</h2>
             </header>
             <div class="food-pairing__container">
-                <button class="food-pairing__button">
+                <button class="food-pairing__button" aria-label="Open food pairing form">
                     <!-- Created with Inkscape (http://www.inkscape.org/) -->
-                    <svg class="food-pairing__logo__fork" version="1.1" width="210mm" height="297mm"
+                    <svg class="food-pairing__logo__fork" role="img" aria-hidden="true" version="1.1" width="210mm" height="297mm"
                         viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg"
                         xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -90,7 +90,7 @@
                                 fill="none" stroke="#000" stroke-width="2" />
                         </g>
                     </svg>
-                    <svg class="food-pairing__logo__knife" version="1.1" viewBox="0 0 210 297"
+                    <svg class="food-pairing__logo__knife" role="img" aria-hidden="true" version="1.1" viewBox="0 0 210 297"
                         xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
                         xmlns:dc="http://purl.org/dc/elements/1.1/"
                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -104,10 +104,9 @@
                         </g>
                     </svg>
                 </button>
-                <!-- @TODO Label above input as a placeholder -->
                 <form class="food-pairing__form" action="beer-list.html" method="GET">
-                    <input class="food-pairing__form__input" name="food" type="search" role="search" placeholder="What are you going to eat?">
-                    <button class="food-pairing__form__submit">
+                    <input class="food-pairing__form__input" name="food" type="search" role="search" required aria-label="Food name" placeholder="What are you going to eat?">
+                    <button class="food-pairing__form__submit" aria-label="Submit food pairing search">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                             class="food-pairing__form__submit__icon" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
@@ -126,11 +125,11 @@
         </div>
         <div class="footer__contact">
                 <a href="https://github.com/jarosik10" target="_blank" rel="noopener noreferrer" class="contact__link">
-                    <img class="contact__icon icon__github" src="images/github-icon.png">
+                    <img class="contact__icon icon__github" aria-label="Github." src="images/github-icon.png">
                     <span class="contact__text">jarosik10</span>
                 </a>
                 <a href="mailto:bartosz.jaros96@gmail.com" class="contact__link">
-                    <img class="contact__icon icon__email" src="images/email-icon.png">
+                    <img class="contact__icon icon__email" aria-label="Email." src="images/email-icon.png">
                     <span class="contact__text">bartosz.jaros96@gmail.com</span>
                 </a>
         </div>

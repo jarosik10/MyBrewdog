@@ -21,7 +21,7 @@ body {
   text-align: center; }
   .header__title {
     font-size: 3.2rem;
-    font-weight: 300;
+    font-weight: 400;
     font-variant: small-caps;
     color: white;
     z-index: 9999;
@@ -401,6 +401,7 @@ body {
   max-width: 300px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 20px auto; }
   .list-options__button {
     width: 0;
@@ -421,11 +422,10 @@ body {
   border-bottom: 17px solid transparent; }
 
 .page-number {
-  width: 34px;
-  height: 34px;
-  text-align: center;
-  font-family: "Vollkorn";
-  font-size: 2rem; }
+  margin: 0; }
+  .page-number__value {
+    margin-left: 16px;
+    font-size: 2rem; }
 
 .beer {
   display: grid;

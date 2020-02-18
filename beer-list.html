@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyBrewDog</title>
-    <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,700" rel="stylesheet">
 <link href="styles.css" rel="stylesheet"></head>
 <body>
     <header class="header">
         <nav class="navigation">
             <a class = "navigation__logo__link" href="./">
-                <img class="navigation__logo" src="images/brewdog-logo.png" alt="Brewdog logo">
+                <img class="navigation__logo" src="images/brewdog-logo.png" alt="Brewdog.">
             </a>
             <h1 class="header__title">MyBrewDog</h1>
-            <button class="hamburger">
-                <div class="hamburger__bars"></div>
+            <button class="hamburger" aria-label="Open the menu" >
+                <div class="hamburger__bars" aria-hidden="true"></div>
             </button>
             <div class="menu">
                 <ul class="menu__list">
@@ -25,9 +25,8 @@
                     <li class="menu__list__item"><a href="beer-list.html">Beer list</a></li>
                 </ul>
                 <form class="beer-search__form" action="beer-list.html" method="GET">
-                    <input class="beer-search__form__input" name="beer" type="search" role="search" placeholder="search brewdog beer...">
-                    <button class="beer-search__form__submit"
-                        type="submit">
+                    <input class="beer-search__form__input" name="beer" type="search" role="search" required aria-label="Beer name" placeholder="search brewdog beer...">
+                    <button class="beer-search__form__submit" aria-label="Submit beer search" type="submit">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                             class="beer-search__form__submit__icon" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
@@ -45,12 +44,12 @@
                 <h1 class="section__title">Beer list</h1>
             </header>
             <div class="list-options">
-                <button class="list-options__button button__previous-page"></button>
-                <label>Page:<input class="page-number" value="1" readonly></label>
-                <button class="list-options__button button__next-page"></button>
-            </div>
+                <button aria-label="Go to the previous page" class="list-options__button button__previous-page"></button>
+                <p class="page-number">Page:<span data-page-number="1" class="page-number__value">1</span></p>
+                <button aria-label="Go to the next page" class="list-options__button button__next-page"></button">
+            </div>  
             <div class="beer-dialog__container">
-                <div class="beer-dialog">
+                <div class="beer-dialog" role="dialog">   
                     <div class='beer-dialog__name'></div>
                     <div class='beer-dialog__abv'></div>
                     <div class='beer-dialog__ibu'></div>
@@ -58,7 +57,7 @@
                     <div class='beer-dialog__malts'></div>
                     <div class='beer-dialog__description'></div>
                     <img class='beer-dialog__image'>
-                    <button class="beer-dialog__close-button"></button>
+                    <button aria-label="Close beer dialog" class="beer-dialog__close-button"></button>
                 </div>
             </div>
             <ul class="beer-list"></ul>
@@ -70,11 +69,11 @@
         </div>
         <div class="footer__contact">
                 <a href="https://github.com/jarosik10" target="_blank" rel="noopener noreferrer" class="contact__link">
-                    <img class="contact__icon icon__github" src="images/github-icon.png">
+                    <img class="contact__icon icon__github" aria-label="Github." src="images/github-icon.png">
                     <span class="contact__text">jarosik10</span>
                 </a>
                 <a href="mailto:bartosz.jaros96@gmail.com" class="contact__link">
-                    <img class="contact__icon icon__email" src="images/email-icon.png">
+                    <img class="contact__icon icon__email" aria-label="Email." src="images/email-icon.png">
                     <span class="contact__text">bartosz.jaros96@gmail.com</span>
                 </a>
         </div>

@@ -101,21 +101,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const pageInput = document.querySelector('.page-number');
+const pageNumberSpan = document.querySelector('.page-number__value');
 const previousPage = document.querySelector('.button__previous-page');
 const nextPage = document.querySelector('.button__next-page');
 const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
-const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('beer')
-const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('food')
+const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('beer');
+const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('food');
 const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
 const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
 const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
 const createURLforFood = (food, pageNumber, itemsPerPage) => `${baseURL}?food=${food}&page=${pageNumber}&per_page=${itemsPerPage}`;
 
 previousPage.addEventListener('click', async () => {
-    if (pageNumber == 1) return;
+    // Equal or less to prevent bug caused by fast button clicking
+    if (pageNumber <= 1) {
+        pageNumber = 1;
+        return;
+    };
     let url;
     if (searchedBeerName) {
         url = createURLforBeerName(searchedBeerName, pageNumber - 1, itemsPerPage); 
@@ -130,7 +134,8 @@ previousPage.addEventListener('click', async () => {
     if (data.length != 0) {
         clearBeerList();
         addBeerImages(data);
-        pageInput.setAttribute('value', --pageNumber);
+        pageNumberSpan.dataset.pageNumber = --pageNumber;
+        pageNumberSpan.innerHTML = pageNumber;
     }
 });
 
@@ -149,7 +154,8 @@ nextPage.addEventListener('click', async () => {
     if (data.length != 0) {
         clearBeerList();
         addBeerImages(data);
-        pageInput.setAttribute('value', ++pageNumber);
+        pageNumberSpan.dataset.pageNumber = ++pageNumber;
+        pageNumberSpan.innerHTML = pageNumber;
     }
 });
 
@@ -167,7 +173,7 @@ const addBeerImages = (data) => {
     let beerList = document.querySelector('.beer-list');
     for (const obj of data) {
         const beer = document.createElement('li');
-        beer.classList.add('beer')
+        beer.classList.add('beer');
         const beerNameContainer = document.createElement('div');
         beerNameContainer.classList.add('beer__name');
         const beerName = document.createElement('span');
@@ -179,6 +185,7 @@ const addBeerImages = (data) => {
         beerImage.classList.add('beer__image');
         const buttonModal = document.createElement('button');
         buttonModal.classList.add('beer__button-modal');
+        buttonModal.setAttribute('aria-label', 'Open beer dialog');
 
         beerList.appendChild(beer);
         beer.appendChild(beerNameContainer);
@@ -190,12 +197,13 @@ const addBeerImages = (data) => {
 
         const {name, abv, ibu, image_url, id} = obj;
         beerName.innerHTML = name;
-        beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`
+        beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`;
         beerIbu.innerHTML = `IBU: ${ibu == null ? "Unknown" : ibu}`;
         buttonModal.innerHTML = `Read more`;
-        buttonModal.value = id;
-        buttonModal.addEventListener('click', showBeerDetails)
+        buttonModal.dataset.beerId = id;
+        buttonModal.addEventListener('click', showBeerDetails);
         beerImage.src = image_url;
+        beerImage.alt = "";
     }
 }
 
@@ -211,17 +219,17 @@ const beerDialogCloseButton = document.querySelector('.beer-dialog__close-button
 
 beerDialogCloseButton.addEventListener('click', () => {
     beerDialogContainer.classList.remove('beer-dialog__container--active');
-    document.body.classList.remove('scroll-lock')
-})
+    document.body.classList.remove('scroll-lock');
+});
 
 
 const openBeerDialog = () => {
     beerDialogContainer.classList.add('beer-dialog__container--active');
-    document.body.classList.add('scroll-lock')
+    document.body.classList.add('scroll-lock');
 }
 
 async function showBeerDetails() {
-    const beerID = this.value;
+    const beerID = this.dataset.beerId;
     const url = createURLforBeerID(beerID);
     const data = await getBeerData(url);
     const [beer] = data;
@@ -237,16 +245,16 @@ async function showBeerDetails() {
     const hopsNames = []
     hops.map(hop => {
         const {name} = hop;
-        if (!hopsNames.includes(name)) hopsNames.push(name)
+        if (!hopsNames.includes(name)) hopsNames.push(name);
     })
     const maltNames = []
     malt.map(malt => {
         const {name} = malt;
-        if (!maltNames.includes(name)) maltNames.push(name)
+        if (!maltNames.includes(name)) maltNames.push(name);
     })
     beerName.innerHTML = name;
-    beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`
-    beerIbu.innerHTML = `IBU: ${ibu == null ? "Unknown" : ibu}`
+    beerAbv.innerHTML = `ABV: ${abv == null ? "Unknown" : abv}%`;
+    beerIbu.innerHTML = `IBU: ${ibu == null ? "Unknown" : ibu}`;
     beerHops.innerHTML = `Hops: ${hopsNames.join(", ")}`;
     beerMatls.innerHTML = `Malts: ${maltNames.join(", ")}`;
     beerDescription.innerHTML = description;
@@ -269,7 +277,6 @@ async function showBeerDetails() {
     if (data.length != 0) {
         clearBeerList();
         addBeerImages(data);
-        pageInput.setAttribute('value', pageNumber);
     }
 })();
 

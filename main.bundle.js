@@ -110,7 +110,6 @@ class BeerStyleCarousel {
         this.numberOfCarouselCells;
     }
 
-    //Calculates beer styles carousel parameters (depends on viewport width size and number of carousel cells)
     calculateCaruselParameters() {
         this.numberOfCarouselCells  = this.beerStyles.length;
         this.theta = 360 / this.numberOfCarouselCells;
@@ -121,15 +120,12 @@ class BeerStyleCarousel {
         this.carouselCellWidth = this.sceneWidth - 20;
     }
 
-    //Rotates the carousel
     rotateCarousel(carousel, rotation) {
         carousel.style.transform = 'translateZ(' + -this.radius + 'px) rotateY(' + rotation + 'deg)';
     }
 
-    //Creates beer styles carousel
     createCarousel() {
         this.calculateCaruselParameters();    
-
         const beerStylesContainer = document.createElement('div');
         beerStylesContainer.classList.add('beer-styles__container');
         const scene = document.createElement('div');
@@ -163,9 +159,6 @@ class BeerStyleCarousel {
         this.addCarouselMovement(beerStylesContainer, carousel);
     }
 
-   
-
-    //Adds movement of carousel (rotation)
     addCarouselMovement(field, carousel) {
         let rotation = 0;
         let rotationForce = 252 * Math.pow(this.radius, -1.2); //rotation force equation calculated experimentally
@@ -173,7 +166,6 @@ class BeerStyleCarousel {
         if (Object(_mobileAndTabletCheck__WEBPACK_IMPORTED_MODULE_0__["default"])()) {
             field.ontouchstart = (event) => {
                 event = event || window.event;
-                // event.preventDefault();
                 let touchPositionX = event.touches[0].clientX;
                 field.ontouchmove = (event) => {
                     event = event || window.event;
@@ -239,14 +231,12 @@ const beerStyles = ['India Pale Ale (IPA)', 'Double IPA', 'American IPA', 'Witbi
 const maxRadius = 630;
 const beerStyleCarousel = new _beerStyleCarousel__WEBPACK_IMPORTED_MODULE_1__["default"](beerStyles, maxRadius);
 
-//creates new version of carousel on window resize
 window.onresize = () =>{
     beerStyleCarousel.recreateBeerStyleCarousel();
-} 
+};
 
 beerStyleCarousel.createCarousel();
 
-//Food pairing
 const foodPairingButton = document.querySelector('.food-pairing__button');
 const foodPairingFork = document.querySelector('.food-pairing__logo__fork');
 const foodPairingKnife = document.querySelector('.food-pairing__logo__knife');
