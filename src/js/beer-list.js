@@ -115,18 +115,56 @@ const clearBeerList = () => {
 }
 
 const beerDialogContainer = document.querySelector('.beer-dialog__container');
+const beerDialog = document.querySelector('.beer-dialog');
 const beerDialogCloseButton = document.querySelector('.beer-dialog__close-button');
-
-beerDialogCloseButton.addEventListener('click', () => {
-    beerDialogContainer.classList.remove('beer-dialog__container--active');
-    document.body.classList.remove('scroll-lock');
-});
-
+let focusedBoforeDialog; 
 
 const openBeerDialog = () => {
     beerDialogContainer.classList.add('beer-dialog__container--active');
     document.body.classList.add('scroll-lock');
+    focusedBoforeDialog = document.activeElement;
+    focusFirstElement();
+    trapFocus();
 }
+
+const focusFirstElement = () => {
+    const focusable = beerDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    focusable[0].focus();
+}
+
+const keepFocusInside = (event) => {
+    if (event.keyCode == 9) {
+        const focusable = beerDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const focusedIndex = Array.prototype.indexOf.call(focusable, document.activeElement);
+        if (!event.shiftKey && focusedIndex == focusable.length - 1) {
+            focusable[0].focus();
+            event.preventDefault();
+        }
+        else if (event.shiftKey && focusedIndex == 0) {
+            focusable[focusable.length - 1].focus();
+            event.preventDefault();
+        }
+    }
+}
+
+const retriveLostFocus = (event) => {
+    if (!beerDialog.contains(event.target)) {
+        focusFirstElement();
+    }
+}
+
+const trapFocus = () => {
+    document.addEventListener('keydown', keepFocusInside);
+    document.body.addEventListener('focus', retriveLostFocus, true)
+}
+
+beerDialogCloseButton.addEventListener('click', () => {
+    beerDialogContainer.classList.remove('beer-dialog__container--active');
+    document.body.classList.remove('scroll-lock');
+    document.removeEventListener('keydown', keepFocusInside);
+    document.body.removeEventListener('focus', retriveLostFocus, true);
+    focusedBoforeDialog.focus();
+});
 
 async function showBeerDetails() {
     const beerID = this.dataset.beerId;
