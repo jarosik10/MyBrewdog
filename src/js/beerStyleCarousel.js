@@ -42,20 +42,17 @@ export default class BeerStyleCarousel {
 
         for (let i = 0; i < this.numberOfCarouselCells; i++) {
             const carouselCell = document.createElement('div');
-            carouselCell.classList.add('beer-styles__carousel__cell');
+            carouselCell.classList.add('carousel__cell');
             carouselCell.style.width = this.carouselCellWidth + 'px';
             carouselCell.style.height = this.carouselCellWidth + 'px';
             let cellAngle = this.theta * i;
             carouselCell.style.transform = 'rotateY' + '(' + cellAngle + 'deg) translateZ(' + this.radius + 'px)';
             const carouselCellLink = document.createElement('a');
-            carouselCellLink.href = "#" + this.beerStyles[i];
             carouselCellLink.classList.add('cell__link');
-            const beerStyleName = document.createElement('span');
-            beerStyleName.innerHTML = this.beerStyles[i];
-            beerStyleName.classList.add('cell__name');
+            carouselCellLink.href = "#" + this.beerStyles[i];
+            carouselCellLink.innerHTML = this.beerStyles[i];
             carousel.appendChild(carouselCell);
             carouselCell.appendChild(carouselCellLink);
-            carouselCellLink.appendChild(beerStyleName);
         }
         this.addCarouselMovement(beerStylesContainer, carousel);
     }

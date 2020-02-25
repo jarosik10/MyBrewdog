@@ -324,7 +324,7 @@ body {
   transform-style: preserve-3d;
   transition: transform 0.5s linear;
 
-  &__cell {
+  .carousel__cell { 
     position: absolute;
     max-width: 180px;
     max-height: 180px;
@@ -335,22 +335,18 @@ body {
     box-shadow: 0 0 6px 0.5px gray;
 
     .cell__link {
+      display: flex;
       width: 100%;
       height: 100%;
-      display: flex;
       justify-content: center;
       align-items: center;
-      text-decoration: none;
       pointer-events: auto;
-    }
-
-    .cell__name {
-      font-size: 1.4rem;
       text-align: center;
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: black;
       text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-      user-select: none;
-      font-weight: 700;
     }
   }
 }
@@ -361,26 +357,30 @@ body {
   --defaultRotation: 0deg;
 }
 
-.food-pairing__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  min-height: 100px;
-  margin: 20px auto;
-}
+.food-pairing {
+  &__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100px;
+    margin: 20px auto;
+  }
 
-.food-pairing__logo {
-  &__fork {
+  @mixin food-pairing__logo {
     position: absolute;
     width: 100px;
     height: auto;
-    transform: translateX(50px);
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  &__logo-fork {
+    @include food-pairing__logo();
+    transform: translateX(50px);
     --distanceX: -35vw;
     --defaultXPosition: 20px;
     --defaultRotation: 45deg;
@@ -393,16 +393,9 @@ body {
     }
   }
 
-  &__knife {
-    position: absolute;
-    width: 100px;
-    height: auto;
+  &__logo-knife {
+    @include food-pairing__logo();
     transform: translateX(-50px);
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     --distanceX: 35vw;
     --defaultXPosition: -20px;
     --defaultRotation: -45deg;
@@ -414,70 +407,70 @@ body {
       animation: moveOutForkAndKnife 1s both;
     }
   }
-}
 
-.food-pairing__button {
-  padding: 0;
-  width: 100px;
-  height: 100px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-}
-
-.food-pairing__form {
-  position: absolute;
-  width: 70vw;
-  height: 40px;
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 30px;
-  transform: scaleX(0);
-  transition: transform 0.6s ease;
-
-  &--active {
-    transition: transform 0.7s 0.3s ease;
-    transform: scaleX(1);
-  }
-
-  &__input {
-    grid-column: 1 / -1;
-    grid-row: 1;
+  &__button {
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    border: none;
     background-color: transparent;
-    border-top: 1px black solid;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    border-bottom: 3px black solid;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-left: none;
-    border-right: none;
-    text-align: center;
-    font-family: "Vollkorn";
-    font-size: 1.4rem;
+    cursor: pointer;
     outline: none;
   }
 
-  &__submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column: 2;
-    grid-row: 1;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-
-    &__icon {
-      height: 18px;
-      color: #575757;
+  &__form {
+    position: absolute;
+    width: 70vw;
+    height: 40px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+  
+    &--active {
+      transition: transform 0.7s 0.3s ease;
+      transform: scaleX(1);
+    }
+  
+    .form__input {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      background-color: transparent;
+      border-top: 1px black solid;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-bottom: 3px black solid;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      font-family: "Vollkorn";
+      font-size: 1.4rem;
+      outline: none;
+    }
+  
+    .form__search-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column: 2;
+      grid-row: 1;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+  
+      .search-button__icon {
+        height: 18px;
+        color: #575757;
+      }
     }
   }
 }
@@ -908,31 +901,35 @@ body {
     }
   }
 
-  .food-pairing__logo__fork,
-  .food-pairing__logo__knife {
-    width: 120px;
-  }
-  .food-pairing__container {
-    margin: 30px auto;
-  }
+  .food-pairing {
+    &__container {
+      margin: 30px auto;
 
-  .food-pairing__logo__fork {
-    --distanceX: -25vw;
-  }
+    }
 
-  .food-pairing__logo__knife {
-    --distanceX: 25vw;
-  }
+    &__logo-fork,
+    &__logo-knife {
+      width: 120px;
+    }
 
-  .food-pairing__form {
-    width: 50vw;
+    &__logo-fork {
+      --distanceX: -25vw;
+    }
+
+    &__logo-knife {
+      --distanceX: 25vw;
+    }
+
+    &__form {
+      width: 50vw;
+    }
   }
 
   .beer-styles__carousel {
-    &__cell {
+    .carousel__cell {
       box-shadow: 0 0 10px 0.5px gray;
 
-      .cell__name {
+      .cell__link {
         font-size: 1.6rem;
       }
     }
@@ -969,16 +966,18 @@ body {
     font-size: 1.8rem;
   }
 
-  .food-pairing__logo__fork {
-    --distanceX: -15vw;
-  }
+  .food-pairing {
+    &__logo-fork {
+      --distanceX: -15vw;
+    }
 
-  .food-pairing__logo__knife {
-    --distanceX: 15vw;
-  }
+    &__logo-knife {
+      --distanceX: 15vw;
+    }
 
-  .food-pairing__form {
-    width: 30vw;
+    &__form {
+      width: 30vw;
+    }
   }
 
   .beer-dialog {
