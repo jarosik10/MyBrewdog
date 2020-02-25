@@ -97,6 +97,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BeerStyleCarousel; });
 /* harmony import */ var _mobileAndTabletCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mobileAndTabletCheck */ "./src/js/mobileAndTabletCheck.js");
+/* harmony import */ var _isInViewport__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isInViewport */ "./src/js/isInViewport.js");
+
+
 
 class BeerStyleCarousel {
     constructor(beerStyles, maxRadius) {
@@ -128,6 +131,7 @@ class BeerStyleCarousel {
         this.calculateCaruselParameters();    
         const beerStylesContainer = document.createElement('div');
         beerStylesContainer.classList.add('beer-styles__container');
+        // beerStylesContainer.setAttribute('tabindex', '0')
         const scene = document.createElement('div');
         scene.classList.add('beer-styles__scene');
         scene.style.width = this.sceneWidth + 'px';
@@ -141,20 +145,17 @@ class BeerStyleCarousel {
 
         for (let i = 0; i < this.numberOfCarouselCells; i++) {
             const carouselCell = document.createElement('div');
-            carouselCell.classList.add('beer-styles__carousel__cell');
+            carouselCell.classList.add('carousel__cell');
             carouselCell.style.width = this.carouselCellWidth + 'px';
             carouselCell.style.height = this.carouselCellWidth + 'px';
             let cellAngle = this.theta * i;
             carouselCell.style.transform = 'rotateY' + '(' + cellAngle + 'deg) translateZ(' + this.radius + 'px)';
             const carouselCellLink = document.createElement('a');
-            carouselCellLink.href = "#" + this.beerStyles[i];
             carouselCellLink.classList.add('cell__link');
-            const beerStyleName = document.createElement('span');
-            beerStyleName.innerHTML = this.beerStyles[i];
-            beerStyleName.classList.add('cell__name');
+            carouselCellLink.href = "#" + this.beerStyles[i];
+            carouselCellLink.innerHTML = this.beerStyles[i];
             carousel.appendChild(carouselCell);
             carouselCell.appendChild(carouselCellLink);
-            carouselCellLink.appendChild(beerStyleName);
         }
         this.addCarouselMovement(beerStylesContainer, carousel);
     }
@@ -192,10 +193,39 @@ class BeerStyleCarousel {
                     this.rotateCarousel(carousel, rotation);
                     mousePositionX = newMousePositionX;
                 }
-                field.onmouseup = (event) => {
+                document.addEventListener('mouseup', function removeListeners() {
                     field.onmousemove = field.onmouseup = null;
-                }
+                    document.removeEventListener('mouseup', removeListeners);
+                });
             }
+
+            const focusalbeCells = carousel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            document.addEventListener('keydown', (event) => {
+                if (Object(_isInViewport__WEBPACK_IMPORTED_MODULE_1__["default"])(carousel)) {
+                    if (event.keyCode == 39) {
+                        rotation -= this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                    if (event.keyCode == 37) {  
+                        rotation += this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                }
+            });
+            
+            field.addEventListener('keydown', (event) => {
+                if (event.keyCode == 9) {
+                    const focusedIndex = Array.prototype.indexOf.call(focusalbeCells, document.activeElement);
+                    if (!event.shiftKey && focusedIndex != focusalbeCells.length - 1) {
+                        rotation -= this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                    else if (event.shiftKey && focusedIndex != 0) {
+                        rotation += this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                }
+            });
         }
     }
 
@@ -208,6 +238,29 @@ class BeerStyleCarousel {
             this.createCarousel();
         }
     }
+}
+
+/***/ }),
+
+/***/ "./src/js/isInViewport.js":
+/*!********************************!*\
+  !*** ./src/js/isInViewport.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isInViewport; });
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) 
+    );
 }
 
 /***/ }),
@@ -238,13 +291,13 @@ window.onresize = () =>{
 beerStyleCarousel.createCarousel();
 
 const foodPairingButton = document.querySelector('.food-pairing__button');
-const foodPairingFork = document.querySelector('.food-pairing__logo__fork');
-const foodPairingKnife = document.querySelector('.food-pairing__logo__knife');
+const foodPairingFork = document.querySelector('.food-pairing__logo-fork');
+const foodPairingKnife = document.querySelector('.food-pairing__logo-knife');
 const foodPairingForm = document.querySelector('.food-pairing__form');
 
 foodPairingButton.addEventListener('click', () => {
-    foodPairingFork.classList.toggle('food-pairing__logo__fork--active');
-    foodPairingKnife.classList.toggle('food-pairing__logo__knife--active');
+    foodPairingFork.classList.toggle('food-pairing__logo-fork--active');
+    foodPairingKnife.classList.toggle('food-pairing__logo-knife--active');
     foodPairingForm.classList.toggle('food-pairing__form--active');
 });
 
@@ -280,7 +333,7 @@ function mobileAndTabletCheck() {
 
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.menu');
-const menuItems = document.querySelectorAll('.menu__list__item');
+const menuItems = document.querySelectorAll('.menu__item');
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('hamburger--active');

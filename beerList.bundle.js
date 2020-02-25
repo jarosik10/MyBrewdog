@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/beer-list.js":
-/*!*****************************!*\
-  !*** ./src/js/beer-list.js ***!
-  \*****************************/
+/***/ "./src/js/beerList.js":
+/*!****************************!*\
+  !*** ./src/js/beerList.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -97,7 +97,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ "./src/scss/styles.scss");
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _getUrlVariable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getUrlVariable */ "./src/js/getUrlVariable.js");
+/* harmony import */ var _getQueryVariable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getQueryVariable */ "./src/js/getQueryVariable.js");
 
 
 
@@ -107,8 +107,8 @@ const nextPage = document.querySelector('.button__next-page');
 const baseURL = 'https://api.punkapi.com/v2/beers';
 let pageNumber = 1;
 const itemsPerPage = 20;
-const searchedBeerName = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('beer');
-const searchedFood = Object(_getUrlVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('food');
+const searchedBeerName = Object(_getQueryVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('beer');
+const searchedFood = Object(_getQueryVariable__WEBPACK_IMPORTED_MODULE_1__["default"])('food');
 const createURLforBeerList = (pageNumber, itemsPerPage) => `${baseURL}?page=${pageNumber}&per_page=${itemsPerPage}`;
 const createURLforBeerID = (beerID) => `${baseURL}/${beerID}`;
 const createURLforBeerName = (beerName, pageNumber, itemsPerPage) => `${baseURL}?beer_name=${beerName}&page=${pageNumber}&per_page=${itemsPerPage}`;
@@ -215,18 +215,56 @@ const clearBeerList = () => {
 }
 
 const beerDialogContainer = document.querySelector('.beer-dialog__container');
+const beerDialog = document.querySelector('.beer-dialog');
 const beerDialogCloseButton = document.querySelector('.beer-dialog__close-button');
-
-beerDialogCloseButton.addEventListener('click', () => {
-    beerDialogContainer.classList.remove('beer-dialog__container--active');
-    document.body.classList.remove('scroll-lock');
-});
-
+let focusedBoforeDialog; 
 
 const openBeerDialog = () => {
     beerDialogContainer.classList.add('beer-dialog__container--active');
     document.body.classList.add('scroll-lock');
+    focusedBoforeDialog = document.activeElement;
+    focusFirstElement();
+    trapFocus();
 }
+
+const focusFirstElement = () => {
+    const focusable = beerDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    focusable[0].focus();
+}
+
+const keepFocusInside = (event) => {
+    if (event.keyCode == 9) {
+        const focusable = beerDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const focusedIndex = Array.prototype.indexOf.call(focusable, document.activeElement);
+        if (!event.shiftKey && focusedIndex == focusable.length - 1) {
+            focusable[0].focus();
+            event.preventDefault();
+        }
+        else if (event.shiftKey && focusedIndex == 0) {
+            focusable[focusable.length - 1].focus();
+            event.preventDefault();
+        }
+    }
+}
+
+const retriveLostFocus = (event) => {
+    if (!beerDialog.contains(event.target)) {
+        focusFirstElement();
+    }
+}
+
+const trapFocus = () => {
+    document.addEventListener('keydown', keepFocusInside);
+    document.body.addEventListener('focus', retriveLostFocus, true)
+}
+
+beerDialogCloseButton.addEventListener('click', () => {
+    beerDialogContainer.classList.remove('beer-dialog__container--active');
+    document.body.classList.remove('scroll-lock');
+    document.removeEventListener('keydown', keepFocusInside);
+    document.body.removeEventListener('focus', retriveLostFocus, true);
+    focusedBoforeDialog.focus();
+});
 
 async function showBeerDetails() {
     const beerID = this.dataset.beerId;
@@ -286,10 +324,10 @@ async function showBeerDetails() {
 
 /***/ }),
 
-/***/ "./src/js/getUrlVariable.js":
-/*!**********************************!*\
-  !*** ./src/js/getUrlVariable.js ***!
-  \**********************************/
+/***/ "./src/js/getQueryVariable.js":
+/*!************************************!*\
+  !*** ./src/js/getQueryVariable.js ***!
+  \************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -317,7 +355,7 @@ function getQueryVariable(variable) {
 
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.menu');
-const menuItems = document.querySelectorAll('.menu__list__item');
+const menuItems = document.querySelectorAll('.menu__item');
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('hamburger--active');
@@ -347,13 +385,13 @@ menuItems.forEach(item => item.addEventListener('click', () => {
 /***/ }),
 
 /***/ 1:
-/*!**********************************************************!*\
-  !*** multi ./src/js/beer-list.js ./src/js/navigation.js ***!
-  \**********************************************************/
+/*!*********************************************************!*\
+  !*** multi ./src/js/beerList.js ./src/js/navigation.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./src/js/beer-list.js */"./src/js/beer-list.js");
+__webpack_require__(/*! ./src/js/beerList.js */"./src/js/beerList.js");
 module.exports = __webpack_require__(/*! ./src/js/navigation.js */"./src/js/navigation.js");
 
 
