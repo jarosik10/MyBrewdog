@@ -1,4 +1,6 @@
 import mobileAndTabletCheck from "./mobileAndTabletCheck";
+import isInViewport from "./isInViewport";
+
 export default class BeerStyleCarousel {
     constructor(beerStyles, maxRadius) {
         this.beerStyles = beerStyles;
@@ -29,6 +31,7 @@ export default class BeerStyleCarousel {
         this.calculateCaruselParameters();    
         const beerStylesContainer = document.createElement('div');
         beerStylesContainer.classList.add('beer-styles__container');
+        // beerStylesContainer.setAttribute('tabindex', '0')
         const scene = document.createElement('div');
         scene.classList.add('beer-styles__scene');
         scene.style.width = this.sceneWidth + 'px';
@@ -90,10 +93,39 @@ export default class BeerStyleCarousel {
                     this.rotateCarousel(carousel, rotation);
                     mousePositionX = newMousePositionX;
                 }
-                field.onmouseup = (event) => {
+                document.addEventListener('mouseup', function removeListeners() {
                     field.onmousemove = field.onmouseup = null;
-                }
+                    document.removeEventListener('mouseup', removeListeners);
+                });
             }
+
+            const focusalbeCells = carousel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            document.addEventListener('keydown', (event) => {
+                if (isInViewport(carousel)) {
+                    if (event.keyCode == 39) {
+                        rotation -= this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                    if (event.keyCode == 37) {  
+                        rotation += this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                }
+            });
+            
+            field.addEventListener('keydown', (event) => {
+                if (event.keyCode == 9) {
+                    const focusedIndex = Array.prototype.indexOf.call(focusalbeCells, document.activeElement);
+                    if (!event.shiftKey && focusedIndex != focusalbeCells.length - 1) {
+                        rotation -= this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                    else if (event.shiftKey && focusedIndex != 0) {
+                        rotation += this.theta;
+                        this.rotateCarousel(carousel, rotation);
+                    }
+                }
+            });
         }
     }
 
