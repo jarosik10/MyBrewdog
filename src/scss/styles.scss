@@ -152,26 +152,25 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+  }
 
-    &__item {
-      margin: 15px 0;
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 0.2s ease-out, transform 0.1s ease-out;
+  &__item {
+    margin: 15px 0;
+  }
 
-      a {
-        text-decoration: none;
-        font-size: 1.8rem;
-        color: white;
-      }
+  &__link {
+    display: block;
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: white;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.2s ease-out, transform 0.1s ease-out;
 
-      &:hover {
-        transform: scale(1.05);
-
-        a {
-          text-shadow: 1px 2px 3px rgb(209, 140, 12);
-        }
-      }
+    &:hover,
+    &:focus {
+      transform: scale(1.05);
+      text-shadow: 1px 2px 3px rgb(209, 140, 12);
     }
   }
 
@@ -185,20 +184,22 @@ body {
       transform: translateX(-100%);
     }
 
-    .menu__list__item {
+    .menu__link {
       opacity: 1;
       transform: scale(1);
+    }
 
-      &:nth-child(1) {
+    .menu__item {
+      &:nth-child(1) .menu__link {
         transition: opacity 0.2s 0.35s ease-out, transform 0.15s 0.35s ease-out;
       }
-      &:nth-child(2) {
+      &:nth-child(2) .menu__link {
         transition: opacity 0.2s 0.45s ease-out, transform 0.15s 0.45s ease-out;
       }
-      &:nth-child(3) {
+      &:nth-child(3) .menu__link {
         transition: opacity 0.2s 0.55s ease-out, transform 0.15s 0.55s ease-out;
       }
-      &:nth-child(4) {
+      &:nth-child(4) .menu__link {
         transition: opacity 0.2s 0.65s ease-out, transform 0.15s 0.65s ease-out;
       }
     }
@@ -222,7 +223,7 @@ body {
   transform: scaleX(0.5);
   transition: opacity 0.2s ease-out, transform 0.1s ease-out;
 
-  &__input {
+  .form__input {
     grid-column: 1 / -1;
     grid-row: 1;
     background-color: white;
@@ -237,9 +238,13 @@ body {
     &:focus {
       box-shadow: 0 0 10px rgb(209, 140, 12);
     }
+
+    &::placeholder {
+      color: black;
+    }
   }
 
-  &__submit {
+  .form__search-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -250,20 +255,16 @@ body {
     padding: 0;
     cursor: pointer;
 
-    &__icon {
+    .search-button__icon {
       height: 18px;
       color: #575757;
     }
 
-    &:hover &__icon,
-    &:focus &__icon {
+    &:hover .search-button__icon,
+    &:focus .search-button__icon {
       color: black;
     }
   }
-}
-
-.beer-search__form__input::placeholder {
-  color: black;
 }
 
 .container {
@@ -323,7 +324,7 @@ body {
   transform-style: preserve-3d;
   transition: transform 0.5s linear;
 
-  &__cell {
+  .carousel__cell { 
     position: absolute;
     max-width: 180px;
     max-height: 180px;
@@ -334,22 +335,18 @@ body {
     box-shadow: 0 0 6px 0.5px gray;
 
     .cell__link {
+      display: flex;
       width: 100%;
       height: 100%;
-      display: flex;
       justify-content: center;
       align-items: center;
-      text-decoration: none;
       pointer-events: auto;
-    }
-
-    .cell__name {
-      font-size: 1.4rem;
       text-align: center;
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: black;
       text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-      user-select: none;
-      font-weight: 700;
     }
   }
 }
@@ -360,26 +357,30 @@ body {
   --defaultRotation: 0deg;
 }
 
-.food-pairing__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  min-height: 100px;
-  margin: 20px auto;
-}
+.food-pairing {
+  &__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100px;
+    margin: 20px auto;
+  }
 
-.food-pairing__logo {
-  &__fork {
+  @mixin food-pairing__logo {
     position: absolute;
     width: 100px;
     height: auto;
-    transform: translateX(50px);
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  &__logo-fork {
+    @include food-pairing__logo();
+    transform: translateX(50px);
     --distanceX: -35vw;
     --defaultXPosition: 20px;
     --defaultRotation: 45deg;
@@ -392,16 +393,9 @@ body {
     }
   }
 
-  &__knife {
-    position: absolute;
-    width: 100px;
-    height: auto;
+  &__logo-knife {
+    @include food-pairing__logo();
     transform: translateX(-50px);
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     --distanceX: 35vw;
     --defaultXPosition: -20px;
     --defaultRotation: -45deg;
@@ -413,70 +407,70 @@ body {
       animation: moveOutForkAndKnife 1s both;
     }
   }
-}
 
-.food-pairing__button {
-  padding: 0;
-  width: 100px;
-  height: 100px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-}
-
-.food-pairing__form {
-  position: absolute;
-  width: 70vw;
-  height: 40px;
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 30px;
-  transform: scaleX(0);
-  transition: transform 0.6s ease;
-
-  &--active {
-    transition: transform 0.7s 0.3s ease;
-    transform: scaleX(1);
-  }
-
-  &__input {
-    grid-column: 1 / -1;
-    grid-row: 1;
+  &__button {
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    border: none;
     background-color: transparent;
-    border-top: 1px black solid;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    border-bottom: 3px black solid;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-left: none;
-    border-right: none;
-    text-align: center;
-    font-family: "Vollkorn";
-    font-size: 1.4rem;
+    cursor: pointer;
     outline: none;
   }
 
-  &__submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column: 2;
-    grid-row: 1;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-
-    &__icon {
-      height: 18px;
-      color: #575757;
+  &__form {
+    position: absolute;
+    width: 70vw;
+    height: 40px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+  
+    &--active {
+      transition: transform 0.7s 0.3s ease;
+      transform: scaleX(1);
+    }
+  
+    .form__input {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      background-color: transparent;
+      border-top: 1px black solid;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-bottom: 3px black solid;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      font-family: "Vollkorn";
+      font-size: 1.4rem;
+      outline: none;
+    }
+  
+    .form__search-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column: 2;
+      grid-row: 1;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+  
+      .search-button__icon {
+        height: 18px;
+        color: #575757;
+      }
     }
   }
 }
@@ -574,14 +568,14 @@ body {
     grid-area: name;
     padding-right: 15px;
     overflow: hidden;
-    
+
     span {
       background: black;
       color: white;
       -webkit-box-decoration-break: clone;
       -o-box-decoration-break: clone;
       box-decoration-break: clone;
-      padding: .5px 15px;
+      padding: 0.5px 15px;
     }
   }
 
@@ -741,7 +735,7 @@ body {
 .footer {
   background-color: black;
   padding: 20px;
-  
+
   &__author {
     font-size: 1.5rem;
     color: white;
@@ -776,10 +770,10 @@ body {
   .menu {
     &__list {
       flex-direction: row;
-      
-      &__item {
-        margin: 15px
-      }
+    }
+
+    &__item {
+      margin: 15px;
     }
   }
 
@@ -803,7 +797,7 @@ body {
     grid-template-rows: 72px;
     grid-template-areas: "menu-list logo title searchbar";
 
-    &__logo__link {
+    &__home-link {
       grid-area: logo;
     }
   }
@@ -827,12 +821,15 @@ body {
       flex-direction: row;
       justify-content: start;
       grid-area: menu-list;
+    }
 
-      &__item {
-        transform: scale(1);
-        opacity: 1;
-        margin-right: 25px;
-      }
+    &__item {
+      margin-right: 25px;
+    }
+    
+    &__link {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
@@ -904,42 +901,45 @@ body {
     }
   }
 
-  .food-pairing__logo__fork,
-  .food-pairing__logo__knife {
-    width: 120px;
-  }
-  .food-pairing__container {
-    margin: 30px auto;
-  }
+  .food-pairing {
+    &__container {
+      margin: 30px auto;
 
-  .food-pairing__logo__fork {
-    --distanceX: -25vw;
-  }
+    }
 
-  .food-pairing__logo__knife {
-    --distanceX: 25vw;
-  }
+    &__logo-fork,
+    &__logo-knife {
+      width: 120px;
+    }
 
-  .food-pairing__form {
-    width: 50vw;
+    &__logo-fork {
+      --distanceX: -25vw;
+    }
+
+    &__logo-knife {
+      --distanceX: 25vw;
+    }
+
+    &__form {
+      width: 50vw;
+    }
   }
 
   .beer-styles__carousel {
-    &__cell {
+    .carousel__cell {
       box-shadow: 0 0 10px 0.5px gray;
 
-      .cell__name {
+      .cell__link {
         font-size: 1.6rem;
       }
     }
   }
 
-
   .footer {
     &__author {
       font-size: 1.6rem;
     }
-  
+
     &__contact {
       flex-direction: row;
       justify-content: center;
@@ -966,16 +966,18 @@ body {
     font-size: 1.8rem;
   }
 
-  .food-pairing__logo__fork {
-    --distanceX: -15vw;
-  }
+  .food-pairing {
+    &__logo-fork {
+      --distanceX: -15vw;
+    }
 
-  .food-pairing__logo__knife {
-    --distanceX: 15vw;
-  }
+    &__logo-knife {
+      --distanceX: 15vw;
+    }
 
-  .food-pairing__form {
-    width: 30vw;
+    &__form {
+      width: 30vw;
+    }
   }
 
   .beer-dialog {

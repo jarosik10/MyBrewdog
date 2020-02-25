@@ -7,7 +7,7 @@ module.exports = {
     devtool: "none",
     entry: {
         main: ['./src/js/main.js', './src/js/navigation.js'],
-        beerList: ['./src/js/beer-list.js', './src/js/navigation.js']
+        beerList: ['./src/js/beerList.js', './src/js/navigation.js']
     },
     output: {
         path: path.resolve(__dirname, "dist"),
