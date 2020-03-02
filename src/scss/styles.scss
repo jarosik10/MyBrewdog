@@ -70,7 +70,7 @@ body {
   border: none;
   background: none;
   z-index: 9999;
-  outline: none;
+  // outline: none;
 
   @mixin hamburger__bar {
     width: 30px;
@@ -115,8 +115,9 @@ body {
 .menu {
   position: fixed;
   display: flex;
+  visibility: hidden;
   flex-direction: column;
-  top: -100%;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -124,26 +125,30 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9998;
+  --transformValue: 0;
+  transition: visibility .35s;
 
   &::before,
   &::after {
-    position: fixed;
+    position: absolute;
     content: "";
     background-color: black;
     z-index: -1;
     height: 100%;
     width: 51%;
-    transition: transform 0.35s ease-out;
+    animation: slideOut 0.35s ease-out forwards;
   }
 
   &::before {
     top: 0;
     left: -51%;
+    --transformValue: 100%;
   }
 
   &::after {
     top: 0;
     right: -51%;
+    --transformValue: -100%;
   }
 
   &__list {
@@ -175,13 +180,11 @@ body {
   }
 
   &--active {
-    transform: translateY(100%);
-    &::before {
-      transform: translateX(100%);
-    }
+    visibility: visible;
+    // transition: visibility .35s;
 
-    &::after {
-      transform: translateX(-100%);
+    &::before, &::after {
+      animation: slideIn 0.35s ease-out forwards;
     }
 
     .menu__link {
@@ -209,6 +212,20 @@ body {
       transform: scaleX(1);
       transition: opacity 0.2s 0.75s ease-out, transform 0.25s 0.75s ease-out;
     }
+  }
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(var(--transformValue));
+  }
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(var(--transformValue));
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -811,6 +828,7 @@ body {
   }
 
   .menu {
+    visibility: visible;
     position: static;
     flex-direction: row;
     width: 100%;
