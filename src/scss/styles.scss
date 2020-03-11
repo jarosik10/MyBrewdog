@@ -57,9 +57,12 @@ body {
   align-items: center;
   z-index: 9999;
 
+  &__home-link {
+    z-index: 9999;
+  }
+
   &__logo {
     max-width: 50px;
-    z-index: 9999;
   }
 }
 
@@ -70,7 +73,6 @@ body {
   border: none;
   background: none;
   z-index: 9999;
-  // outline: none;
 
   @mixin hamburger__bar {
     width: 30px;
@@ -125,7 +127,6 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9998;
-  --transformValue: 0;
   transition: visibility .35s;
 
   &::before,
