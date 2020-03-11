@@ -44,9 +44,10 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 9999; }
-  .navigation__logo {
-    max-width: 50px;
+  .navigation__home-link {
     z-index: 9999; }
+  .navigation__logo {
+    max-width: 50px; }
 
 .hamburger {
   position: relative;
@@ -54,8 +55,7 @@ body {
   right: -10px;
   border: none;
   background: none;
-  z-index: 9999;
-  outline: none; }
+  z-index: 9999; }
   .hamburger__bars {
     position: relative;
     width: 30px;
@@ -86,29 +86,33 @@ body {
 .menu {
   position: fixed;
   display: flex;
+  visibility: hidden;
   flex-direction: column;
-  top: -100%;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   padding: 0;
   justify-content: center;
   align-items: center;
-  z-index: 9998; }
+  z-index: 9998;
+  transition: visibility .35s; }
   .menu::before, .menu::after {
-    position: fixed;
+    position: absolute;
     content: "";
     background-color: black;
     z-index: -1;
     height: 100%;
     width: 51%;
-    transition: transform 0.35s ease-out; }
+    animation: slideOut 0.35s ease-out forwards; }
   .menu::before {
     top: 0;
-    left: -51%; }
+    left: -51%;
+    --transformValue: 100%; }
   .menu::after {
     top: 0;
-    right: -51%; }
+    right: -51%;
+    --transformValue: -100%; }
   .menu__list {
     list-style: none;
     padding: 0;
@@ -129,11 +133,9 @@ body {
       transform: scale(1.05);
       text-shadow: 1px 2px 3px #d18c0c; }
   .menu--active {
-    transform: translateY(100%); }
-    .menu--active::before {
-      transform: translateX(100%); }
-    .menu--active::after {
-      transform: translateX(-100%); }
+    visibility: visible; }
+    .menu--active::before, .menu--active::after {
+      animation: slideIn 0.35s ease-out forwards; }
     .menu--active .menu__link {
       opacity: 1;
       transform: scale(1); }
@@ -149,6 +151,16 @@ body {
       opacity: 1;
       transform: scaleX(1);
       transition: opacity 0.2s 0.75s ease-out, transform 0.25s 0.75s ease-out; }
+
+@keyframes slideIn {
+  to {
+    transform: translateX(var(--transformValue)); } }
+
+@keyframes slideOut {
+  from {
+    transform: translateX(var(--transformValue)); }
+  to {
+    transform: translateX(0); } }
 
 .beer-search__form {
   display: grid;
@@ -608,6 +620,7 @@ body {
   .hamburger {
     display: none; }
   .menu {
+    visibility: visible;
     position: static;
     flex-direction: row;
     width: 100%;
