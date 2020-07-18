@@ -33,7 +33,7 @@
   "dependencies": {
     "gift": "^0.10.2",
     "gulp-gh-pages": "^0.5.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash.template": "^4.5.0",
     "serialize-javascript": "^2.1.2"
   }
